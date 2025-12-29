@@ -1,0 +1,16 @@
+# Dependency folders
+node_modules/
+seo/
+backup/
+
+# Local configuration
+package-lock.json
+package.json
+build.js
+
+# Clean source code (if you want to keep it private)
+calculator-clean.js
+tenant-rental-quote-clean.js
+Notes.txt
+favicon.png
+tenant-rental-quote.html
