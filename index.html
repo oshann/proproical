@@ -252,8 +252,8 @@
                         </div>
 
                         <div></div>
-                        <button id="calcBtn"
-                            class="w-full blue-gradient text-white font-bold py-3 rounded-lg text-xs shadow hover:opacity-90">RECALCULATE</button>
+                        <button onclick="trackROIUsage()" id="calcBtn"
+                            class="w-full blue-gradient text-white font-bold py-3 rounded-lg text-xs shadow hover:opacity-90">CALCULATE</button>
                     </div>
                 </div>
             </div>
@@ -551,6 +551,13 @@
 
     <script src="calculator.js"></script>
     <script src="tenant-rental-quote.js"></script>
+
+    <script>
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        //alert("PropROICal: Right-click is disabled to protect our calculation logic.");
+    });
+    </script>
 
     <template id="tenant-quote-template">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
