@@ -11,6 +11,9 @@ build.js
 # Clean source code (if you want to keep it private)
 calculator-clean.js
 tenant-rental-quote-clean.js
+salary-calculator/salary-calculator-clean.js
+epf-calculator/epf-calculator-clean.js
+income-tax-calculator/income-tax-calculator-clean.js
 Notes.txt
 favicon.png
 tenant-rental-quote.html

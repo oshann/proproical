@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Free Malaysia take-home salary calculator. Instantly estimate your net pay after EPF (KWSP), SOCSO, EIS, and monthly tax (PCB) deductions for 2025/2026.">
+    <meta name="keywords"
+        content="Salary Calculator Malaysia, Take Home Pay Calculator, EPF SOCSO EIS Calculator, PCB Calculator Malaysia, Net Salary Malaysia">
+    <meta name="author" content="PropROICal">
+    <link rel="canonical" href="https://proproical.com/salary-calculator/">
+
+    <title>Salary Calculator Malaysia 2025/2026 | Take-Home Pay (EPF, SOCSO, EIS, Tax)</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        body {
+            font-size: 0.85rem;
+        }
+
+        .metric-bubble {
+            transition: transform 0.2s ease;
+        }
+
+        .metric-bubble:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Malaysia Salary Calculator",
+        "url": "https://proproical.com/salary-calculator/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "description": "Free calculator to estimate Malaysian take-home salary after EPF, SOCSO, EIS and monthly tax deductions.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MYR" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How is take-home salary calculated in Malaysia?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Take-home pay is your gross monthly salary minus your EPF employee contribution (11% for most employees under 60), SOCSO employee contribution (0.5%, capped at a RM6,000 wage ceiling), EIS employee contribution (0.2%, same ceiling), and monthly income tax (PCB)." }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the EPF contribution rate in Malaysia?",
+                "acceptedAnswer": { "@type": "Answer", "text": "For employees below 60, the standard rate is 11% employee and 13% employer (wages up to RM5,000) or 12% employer (wages above RM5,000). For employees aged 60 to 75, the employee rate drops to 0% and the employer rate is 4%." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this PCB / tax estimate exact?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. This tool estimates monthly tax by annualizing your salary and applying LHDN's YA2025 progressive tax brackets with standard personal and EPF relief only. Actual PCB (Potongan Cukai Bulanan) uses LHDN's official schedule, which also factors in marital status, number of children, and other reliefs. Use this as a guide, not a substitute for your payslip or LHDN's own calculator." }
+            }
+        ]
+    }
+    </script>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+            <div>
+                <a href="/"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
+                <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Free Malaysian Finance Tools</p>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-4 items-center">
+                <button onclick="toggleDarkMode()" id="dark-toggle-btn"
+                    class="text-blue-100 hover:text-white transition p-1.5 rounded-lg hover:bg-white/10" title="Toggle dark mode">
+                    <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Property ROI</a>
+                <a href="/salary-calculator/" class="text-[11px] uppercase tracking-wider text-white font-bold border-b-2 border-white pb-1">Salary Calculator</a>
+                <a href="/epf-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">EPF Calculator</a>
+                <a href="/income-tax-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Income Tax</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 pb-10">
+        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">Malaysia Take-Home Salary Calculator</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Estimate your net pay after EPF, SOCSO, EIS, and monthly tax (PCB) deductions -- updated for 2025/2026 rates.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 space-y-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-blue-900 dark:text-blue-400 font-bold mb-4 uppercase text-[11px] tracking-widest border-b dark:border-slate-700 pb-2 text-center">Your Salary</h3>
+                    <div class="space-y-3" id="input-container">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Gross Monthly Salary (RM)</label>
+                            <input type="number" id="grossSalary" value="5000"
+                                class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Age</label>
+                            <select id="ageBand"
+                                class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                                <option value="under60" selected>Below 60</option>
+                                <option value="60plus">60 and above</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p id="socso-eis-note" class="hidden text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+                        Employees aged 60+ move to reduced SOCSO/EIS category rates not modeled here -- shown as RM0. Consult PERKESO for exact figures.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Net Take-Home Pay</p>
+                        <p id="result-net" class="text-4xl font-black">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Gross Salary</p>
+                        <p id="result-gross" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Deductions</p>
+                        <p id="result-total-deductions" class="text-2xl font-black text-red-500">RM0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b dark:border-slate-700 pb-2">Deduction Breakdown</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-xs">
+                        <div class="flex justify-between"><span>EPF (Employee)</span><span id="result-epf-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>EPF (Employer)</span><span id="result-epf-employer" class="font-bold text-slate-400">RM0</span></div>
+                        <div class="flex justify-between"><span>SOCSO (Employee)</span><span id="result-socso-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>SOCSO (Employer)</span><span id="result-socso-employer" class="font-bold text-slate-400">RM0</span></div>
+                        <div class="flex justify-between"><span>EIS (Employee)</span><span id="result-eis-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>EIS (Employer)</span><span id="result-eis-employer" class="font-bold text-slate-400">RM0</span></div>
+                        <div class="flex justify-between col-span-1 md:col-span-2 border-t dark:border-slate-700 pt-2 mt-1"><span class="font-bold">Estimated Monthly Tax (PCB)</span><span id="result-tax" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-left">
+                    <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated (2025/2026 Rates)</h4>
+                    <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
+                        <li><strong>EPF (KWSP):</strong> Employee 11% (below 60). Employer 13% for wages up to RM5,000, or 12% above RM5,000. Ages 60-75: employee 0%, employer 4%.</li>
+                        <li><strong>SOCSO:</strong> 0.5% employee / 1.75% employer, calculated on wages up to a RM6,000 ceiling (effective since October 2024).</li>
+                        <li><strong>EIS:</strong> 0.2% employee / 0.2% employer, same RM6,000 wage ceiling.</li>
+                        <li><strong>Estimated Tax (PCB):</strong> Annualized salary, minus RM9,000 personal relief and up to RM4,000 EPF relief, taxed at LHDN's YA2025 progressive brackets, divided by 12. This is an estimate only -- actual PCB depends on marital status, dependents, and other reliefs.</li>
+                        <li><strong>Disclaimer:</strong> This calculator is a guide for Malaysian citizen employees only and does not replace your payslip, employer's payroll system, or LHDN/KWSP/PERKESO's own calculators.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h4 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frequently Asked Questions</h4>
+                    <div class="space-y-4 text-xs text-slate-600 dark:text-slate-400">
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">How is take-home salary calculated in Malaysia?</p>
+                            <p>Take-home pay is your gross monthly salary minus EPF, SOCSO, and EIS employee contributions, and monthly income tax (PCB).</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What is the EPF contribution rate in Malaysia?</p>
+                            <p>11% employee / 13% or 12% employer for employees below 60, depending on wage band. See the breakdown above for full details.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Is the tax estimate here exact?</p>
+                            <p>No -- it's a simplified estimate using standard reliefs only. For exact PCB, check your payslip or LHDN's official calculator.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
+            <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2">More Free Tools</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
+                <a href="/epf-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
+                <a href="/income-tax-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="salary-calculator.js"></script>
+</body>
+
+</html>

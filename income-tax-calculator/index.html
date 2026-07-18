@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Free Malaysia income tax calculator for YA2025. Estimate your chargeable income and tax payable using LHDN's progressive tax brackets, personal, spouse, child and EPF reliefs.">
+    <meta name="keywords"
+        content="Income Tax Calculator Malaysia, LHDN Tax Calculator, YA2025 Tax Calculator, Malaysia Tax Brackets, Chargeable Income Calculator">
+    <meta name="author" content="PropROICal">
+    <link rel="canonical" href="https://proproical.com/income-tax-calculator/">
+
+    <title>Income Tax Calculator Malaysia YA2025 | LHDN Tax Brackets &amp; Reliefs</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        body {
+            font-size: 0.85rem;
+        }
+
+        .metric-bubble {
+            transition: transform 0.2s ease;
+        }
+
+        .metric-bubble:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Malaysia Income Tax Calculator (YA2025)",
+        "url": "https://proproical.com/income-tax-calculator/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "description": "Free calculator to estimate Malaysian resident individual income tax for YA2025 using LHDN's progressive brackets and standard reliefs.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MYR" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What are Malaysia's income tax rates for YA2025?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Resident individuals are taxed progressively from 0% to 30% depending on chargeable income, unchanged from YA2024. The first RM5,000 is tax-free, rising through brackets up to 30% for chargeable income above RM2,000,000." }
+            },
+            {
+                "@type": "Question",
+                "name": "What is chargeable income?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Chargeable income is your total annual income minus allowable tax reliefs, such as the automatic RM9,000 personal relief, EPF relief (up to RM4,000), spouse relief, and child relief. Tax is calculated on chargeable income, not gross income." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does this calculator include all tax reliefs?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. This is a simplified estimate covering personal, EPF, spouse, and child relief, plus a lump-sum field for any other reliefs. LHDN offers around 20 relief categories in total (lifestyle, medical, education, etc.) -- for an exact figure, use LHDN's official e-Filing system or consult a tax agent." }
+            }
+        ]
+    }
+    </script>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+            <div>
+                <a href="/"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
+                <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Free Malaysian Finance Tools</p>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-4 items-center">
+                <button onclick="toggleDarkMode()" id="dark-toggle-btn"
+                    class="text-blue-100 hover:text-white transition p-1.5 rounded-lg hover:bg-white/10" title="Toggle dark mode">
+                    <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Property ROI</a>
+                <a href="/salary-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Salary Calculator</a>
+                <a href="/epf-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">EPF Calculator</a>
+                <a href="/income-tax-calculator/" class="text-[11px] uppercase tracking-wider text-white font-bold border-b-2 border-white pb-1">Income Tax</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 pb-10">
+        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">Malaysia Income Tax Calculator (YA2025)</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Estimate your chargeable income and tax payable using LHDN's progressive tax brackets.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 space-y-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-blue-900 dark:text-blue-400 font-bold mb-4 uppercase text-[11px] tracking-widest border-b dark:border-slate-700 pb-2 text-center">Your Details</h3>
+                    <div class="space-y-3" id="input-container">
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Annual Income (RM)</label>
+                            <input type="number" id="annualIncome" value="100000"
+                                class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Annual EPF Contribution (RM)</label>
+                            <input type="number" id="annualEpf" value="6600"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Marital Status</label>
+                                <select id="maritalStatus"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                                    <option value="single" selected>Single</option>
+                                    <option value="married">Married</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">No. of Children (&lt;18)</label>
+                                <input type="number" id="numChildren" value="0" min="0"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                        </div>
+                        <div id="spouse-relief-wrap" class="hidden flex items-center gap-2 pt-1">
+                            <input type="checkbox" id="claimSpouseRelief" class="w-4 h-4 cursor-pointer">
+                            <label for="claimSpouseRelief" class="text-[10px] font-bold text-slate-500 dark:text-slate-400 cursor-pointer">Claiming spouse relief (RM4,000)</label>
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Other Reliefs (RM)</label>
+                            <input type="number" id="otherReliefs" value="0"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+                        "Other Reliefs" covers lifestyle, medical, education, SSPN, and any relief not listed above -- lump it together here.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Estimated Tax Payable</p>
+                        <p id="result-tax" class="text-4xl font-black">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Chargeable Income</p>
+                        <p id="result-chargeable" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Effective Tax Rate</p>
+                        <p id="result-effective-rate" class="text-2xl font-black text-blue-700">0.00%</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Monthly Equivalent</p>
+                        <p id="result-monthly-tax" class="text-lg font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Reliefs</p>
+                        <p id="result-total-reliefs" class="text-lg font-black text-green-600">RM0</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Net Income After Tax</p>
+                        <p id="result-net-income" class="text-lg font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b dark:border-slate-700 pb-2">Relief Breakdown</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-xs">
+                        <div class="flex justify-between"><span>Personal Relief</span><span id="break-personal-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>EPF Relief (capped RM4,000)</span><span id="break-epf-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>Spouse Relief</span><span id="break-spouse-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between"><span>Child Relief</span><span id="break-child-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                        <div class="flex justify-between col-span-1 md:col-span-2"><span>Other Reliefs</span><span id="break-other-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
+                            <tr>
+                                <th class="p-3 text-left">Bracket</th>
+                                <th class="p-3">Rate</th>
+                                <th class="p-3">Tax</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bracket-table" class="text-[10px]"></tbody>
+                    </table>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 p-3 border-t dark:border-slate-700">RM400 rebate applied when eligible (chargeable income ≤ RM35,000): <span id="result-rebate">RM0</span></p>
+                </div>
+
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-left">
+                    <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated (YA2025)</h4>
+                    <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
+                        <li><strong>Chargeable Income:</strong> Annual Income minus Personal Relief (RM9,000, automatic) minus EPF Relief (up to RM4,000) minus Spouse Relief (RM4,000, if claimed) minus Child Relief (RM2,000 per child under 18) minus Other Reliefs.</li>
+                        <li><strong>Tax Brackets:</strong> LHDN's YA2025 progressive rates, 0% to 30%, applied to chargeable income (unchanged from YA2024).</li>
+                        <li><strong>RM400 Rebate:</strong> Applied automatically when chargeable income is RM35,000 or below.</li>
+                        <li><strong>Simplifications:</strong> Child relief above uses the basic under-18 rate only (tertiary-education and disabled-child reliefs can be higher -- add the difference under "Other Reliefs"). This tool does not enumerate all ~20 LHDN relief categories individually.</li>
+                        <li><strong>Disclaimer:</strong> This calculator is a guide only. For an exact figure, use LHDN's official e-Filing system or consult a licensed tax agent.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h4 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frequently Asked Questions</h4>
+                    <div class="space-y-4 text-xs text-slate-600 dark:text-slate-400">
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What are Malaysia's income tax rates for YA2025?</p>
+                            <p>Progressive rates from 0% to 30%, unchanged from YA2024. See the full bracket breakdown above once you enter your income.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What is chargeable income?</p>
+                            <p>Your annual income minus allowable reliefs. Tax is calculated on chargeable income, not your gross salary.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Does this include every tax relief?</p>
+                            <p>No -- it covers the most common ones and a lump-sum "other reliefs" field. For an exact figure, use LHDN's e-Filing system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
+            <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2">More Free Tools</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
+                <a href="/salary-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Salary Calculator</a>
+                <a href="/epf-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="income-tax-calculator.js"></script>
+</body>
+
+</html>

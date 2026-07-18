@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Free EPF (KWSP) retirement calculator for Malaysia. Project your EPF savings growth to retirement based on your current balance, salary, and assumed dividend rate.">
+    <meta name="keywords"
+        content="EPF Calculator, KWSP Calculator Malaysia, EPF Retirement Calculator, KWSP Dividend Calculator, EPF Projection">
+    <meta name="author" content="PropROICal">
+    <link rel="canonical" href="https://proproical.com/epf-calculator/">
+
+    <title>EPF Calculator Malaysia | KWSP Retirement Savings Projection</title>
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link rel="apple-touch-icon" href="../favicon.png">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        body {
+            font-size: 0.85rem;
+        }
+
+        .metric-bubble {
+            transition: transform 0.2s ease;
+        }
+
+        .metric-bubble:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Malaysia EPF (KWSP) Retirement Calculator",
+        "url": "https://proproical.com/epf-calculator/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Any",
+        "description": "Free calculator to project EPF/KWSP retirement savings growth in Malaysia based on current balance, salary, and an assumed dividend rate.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MYR" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How much will my EPF grow by retirement?",
+                "acceptedAnswer": { "@type": "Answer", "text": "It depends on your current balance, monthly salary (which determines your contributions), years to retirement, and the dividend rate EPF declares each year. This calculator projects growth using your own inputs and an assumed dividend rate you can adjust." }
+            },
+            {
+                "@type": "Question",
+                "name": "What EPF dividend rate should I assume?",
+                "acceptedAnswer": { "@type": "Answer", "text": "EPF declares its dividend rate annually and it varies year to year -- it is not fixed or guaranteed. This calculator defaults to a conservative illustrative rate that you can adjust to see different scenarios; it is not an official EPF forecast." }
+            },
+            {
+                "@type": "Question",
+                "name": "What EPF contribution rate does this calculator use?",
+                "acceptedAnswer": { "@type": "Answer", "text": "11% employee / 13% or 12% employer (depending on wage band) for ages below 60, and 0% employee / 4% employer from age 60 onward, matching current EPF Act rates. It assumes your salary stays constant over the projection period." }
+            }
+        ]
+    }
+    </script>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
+            <div>
+                <a href="/"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
+                <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Free Malaysian Finance Tools</p>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-4 items-center">
+                <button onclick="toggleDarkMode()" id="dark-toggle-btn"
+                    class="text-blue-100 hover:text-white transition p-1.5 rounded-lg hover:bg-white/10" title="Toggle dark mode">
+                    <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <a href="/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Property ROI</a>
+                <a href="/salary-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Salary Calculator</a>
+                <a href="/epf-calculator/" class="text-[11px] uppercase tracking-wider text-white font-bold border-b-2 border-white pb-1">EPF Calculator</a>
+                <a href="/income-tax-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Income Tax</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 pb-10">
+        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">EPF (KWSP) Retirement Calculator</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Project how your EPF savings could grow between now and retirement.</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 space-y-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-blue-900 dark:text-blue-400 font-bold mb-4 uppercase text-[11px] tracking-widest border-b dark:border-slate-700 pb-2 text-center">Your Details</h3>
+                    <div class="space-y-3" id="input-container">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Current Age</label>
+                                <input type="number" id="currentAge" value="30"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Target Age</label>
+                                <input type="number" id="targetAge" value="60"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Current EPF Balance (RM)</label>
+                            <input type="number" id="currentBalance" value="20000"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Salary (RM)</label>
+                            <input type="number" id="monthlySalary" value="5000"
+                                class="w-full p-2 border border-blue-100 bg-blue-50 rounded text-xs text-blue-700 font-bold text-center dark:bg-slate-900 dark:border-blue-900 dark:text-blue-300">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Assumed Annual Dividend Rate (%)</label>
+                            <input type="number" id="dividendRate" value="5.5" step="0.1"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
+                        EPF's actual dividend rate is declared annually and is not fixed -- adjust this to explore different scenarios.
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-4">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Projected Balance</p>
+                        <p id="result-projected" class="text-4xl font-black">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Contributed</p>
+                        <p id="result-contributed" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Dividends</p>
+                        <p id="result-dividends" class="text-2xl font-black text-green-600">RM0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-200 dark:border-slate-700 h-80 relative">
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center min-w-[600px]">
+                            <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
+                                <tr>
+                                    <th class="p-4">Age</th>
+                                    <th class="p-4">Projected Balance</th>
+                                    <th class="p-4">Annual Contribution</th>
+                                    <th class="p-4">Total Contributed So Far</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projection-table" class="text-[10px] divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-left">
+                    <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated</h4>
+                    <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
+                        <li><strong>Contribution rates:</strong> 11% employee / 13% (wages up to RM5,000) or 12% employer (above RM5,000) for ages below 60; 0% employee / 4% employer from age 60. Starting balance shown here: <span id="result-starting">RM0</span>.</li>
+                        <li><strong>Compounding:</strong> Contributions are added annually and the assumed dividend rate is applied once per year -- a simplified model, not month-by-month compounding.</li>
+                        <li><strong>Salary assumption:</strong> Your monthly salary is assumed to stay constant for the whole projection (no raises modeled).</li>
+                        <li><strong>Dividend rate:</strong> EPF declares its dividend rate annually and it is not guaranteed or fixed -- the rate here is a user-adjustable assumption, not an official forecast.</li>
+                        <li><strong>Disclaimer:</strong> This calculator is a guide only and does not replace your official EPF statement or KWSP's own tools.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h4 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frequently Asked Questions</h4>
+                    <div class="space-y-4 text-xs text-slate-600 dark:text-slate-400">
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">How much will my EPF grow by retirement?</p>
+                            <p>It depends on your current balance, salary, years to retirement, and the dividend rate -- adjust the inputs above to see your own projection.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What EPF dividend rate should I assume?</p>
+                            <p>EPF declares its rate annually and it varies -- this tool defaults to a conservative illustrative rate you can adjust yourself.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What contribution rate does this use?</p>
+                            <p>11%/13% (or 12%) below age 60, and 0%/4% from age 60, per current EPF Act rates.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
+            <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2">More Free Tools</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
+                <a href="/salary-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Salary Calculator</a>
+                <a href="/income-tax-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="epf-calculator.js"></script>
+</body>
+
+</html>
