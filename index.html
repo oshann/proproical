@@ -19,7 +19,16 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
 
+    <script>
+        if (localStorage.getItem('theme') === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .blue-gradient {
@@ -75,7 +84,19 @@
             }
         }
 
-        /* TEMPORARY DEBUG MODE: Remove this once fixed 
+        @media print {
+            header nav, #mobile-summary-bar, #sidebar-inputs, .tab-btn, button,
+            #tab-contact, #tab-about, #tab-tenant-rental-quote, #tab-projection, #tab-compare {
+                display: none !important;
+            }
+            #main-content-area { width: 100% !important; }
+            .tab-content { display: none !important; }
+            #tab-simple { display: block !important; }
+            #print-summary { display: block !important; }
+            body { font-size: 11px; }
+        }
+
+        /* TEMPORARY DEBUG MODE: Remove this once fixed
         .grid div {
             //Red borders for grid children 
             outline: 1px solid #ff0000 !important; 
@@ -100,7 +121,7 @@
     </script>
 </head>
 
-<body class="bg-slate-50 font-sans text-slate-900">
+<body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
 
     <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
@@ -109,12 +130,25 @@
                 <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Property ROI
                     Calculator</p>
             </div>
-            <nav class="flex gap-6 mt-4 md:mt-0">
+            <nav class="flex gap-6 mt-4 md:mt-0 items-center">
+                <button onclick="toggleDarkMode()" id="dark-toggle-btn"
+                    class="text-blue-100 hover:text-white transition p-1.5 rounded-lg hover:bg-white/10" title="Toggle dark mode">
+                    <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="icon-moon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
                 <button onclick="switchTab('simple')" id="btn-simple"
                     class="tab-btn active pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Simple</button>
                 <button onclick="switchTab('projection')" id="btn-projection"
                     class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">30-Year
                     Projection</button>
+                <button onclick="switchTab('compare')" id="btn-compare"
+                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Compare</button>
                 <button onclick="switchTab('tenant-rental-quote')" id="btn-tenant-rental-quote"
                     class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Tenant Rental
                     Quote</button>
@@ -127,10 +161,25 @@
     </header>
 
     <main class="max-w-7xl mx-auto px-4 pb-10">
+        <div id="mobile-summary-bar"
+            class="lg:hidden sticky top-0 z-20 -mx-4 px-4 py-2 mb-4 bg-blue-900 text-white shadow-md flex justify-around items-center gap-2">
+            <div class="text-center">
+                <p class="text-[8px] uppercase tracking-wide text-blue-200 leading-none">Cashflow (mth)</p>
+                <p id="mobile-cashflow" class="text-sm font-black leading-tight">RM0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-[8px] uppercase tracking-wide text-blue-200 leading-none">Upfront Cash</p>
+                <p id="mobile-upfront" class="text-sm font-black leading-tight">RM0</p>
+            </div>
+            <div class="text-center">
+                <p class="text-[8px] uppercase tracking-wide text-blue-200 leading-none">Gross Yield</p>
+                <p id="mobile-yield" class="text-sm font-black leading-tight">0.00%</p>
+            </div>
+        </div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             <div id="sidebar-inputs" class="lg:col-span-3 space-y-4">
-                <div class="bg-white p-5 rounded-xl shadow border border-slate-200">
+                <div class="bg-white p-5 rounded-xl shadow border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
                     <h2
                         class="text-blue-900 font-bold mb-4 uppercase text-[11px] tracking-widest border-b pb-2 text-center">
                         Investment Inputs</h2>
@@ -139,7 +188,7 @@
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Prop Type</label>
                                 <select id="propType"
-                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center">
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                                     <option value="new" selected>New</option>
                                     <option value="resale">Resale</option>
                                 </select>
@@ -147,7 +196,7 @@
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Nationality</label>
                                 <select id="nationality"
-                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center">
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                                     <option value="local">Local</option>
                                     <option value="foreigner">Foreigner</option>
                                 </select>
@@ -157,21 +206,21 @@
                         <div>
                             <label class="text-[9px] font-bold text-slate-400 uppercase">Property Class</label>
                             <select id="propClass"
-                                class="w-full p-2 bg-blue-50 border border-blue-100 rounded text-xs font-bold text-center text-blue-800">
+                                class="w-full p-2 bg-blue-50 border border-blue-100 rounded text-xs font-bold text-center text-blue-800 dark:bg-slate-800 dark:border-blue-900 dark:text-blue-300">
                                 <option value="landed" selected>Landed House</option>
                                 <option value="highrise">Highrise / Condo</option>
                             </select>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Property Price</label>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Property Price (RM)</label>
                                 <input type="number" id="price" value="1230000"
-                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center">
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Loan Tenure (Years)</label>
                                 <input type="number" id="loanTenure" value="30"
-                                    class="w-full p-2 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500 text-center">
+                                    class="w-full p-2 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500 text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                         </div>
 
@@ -179,12 +228,12 @@
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Down Payment %</label>
                                 <input type="number" id="depositPerc" value="10"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Down Payment (RM)</label>
                                 <input type="text" id="depositValue" disabled
-                                    class="w-full p-2 bg-gray-100 border rounded text-xs text-center font-bold text-slate-500">
+                                    class="w-full p-2 bg-gray-100 border rounded text-xs text-center font-bold text-slate-500 dark:bg-slate-900 dark:border-slate-700 dark:text-slate-400">
                             </div>
                         </div>
 
@@ -195,61 +244,65 @@
                             <div>
                                 <label class="text-[9px] font-bold text-slate-400 uppercase">Int % (Annual)</label>
                                 <input type="number" id="interest" value="3.5" step="0.1"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Rent</label>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Rent (RM)</label>
                                 <input type="number" id="rental" value="4000"
-                                    class="w-full p-2 border border-blue-100 bg-blue-50 rounded text-xs text-blue-700 font-bold text-center">
+                                    class="w-full p-2 border border-blue-100 bg-blue-50 rounded text-xs text-blue-700 font-bold text-center dark:bg-slate-800 dark:border-blue-900 dark:text-blue-300">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Sqft</label>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Sqft (Built-up)</label>
                                 <input type="number" id="sqft" value="1750"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Maint/Sqft</label>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Maint/Sqft (RM)</label>
                                 <input type="number" id="maintSqft" value="0.20" step="0.01"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                         </div>
                         <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">First Reno Cost</label>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">First Reno Cost (RM)</label>
                             <input type="number" id="setup" value="150000"
-                                class="w-full p-2 border border-red-100 bg-red-50 rounded text-xs text-black-700 text-center">
+                                class="w-full p-2 border border-red-100 bg-red-50 rounded text-xs text-black-700 text-center dark:bg-slate-800 dark:border-red-900 dark:text-slate-100">
                         </div>
 
 
 
-                        <h3
-                            class="text-[11px] font-bold text-blue-800 uppercase tracking-widest mt-8 pt-4 border-t border-slate-100 text-center">
-                            Entry Fees %</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Levy %</label>
-                                <input type="number" id="levyPerc" value="0" step="0.1"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                        <details class="mt-8 pt-4 border-t border-slate-100">
+                            <summary
+                                class="text-[11px] font-bold text-blue-800 uppercase tracking-widest text-center cursor-pointer select-none">
+                                Entry Fees %
+                                <span class="block text-[9px] text-slate-400 normal-case tracking-normal font-medium mt-1">(auto-filled from Prop Type / Nationality — tap to view or adjust)</span>
+                            </summary>
+                            <div class="grid grid-cols-2 gap-2 mt-3">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">Levy %</label>
+                                    <input type="number" id="levyPerc" value="0" step="0.1"
+                                        class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">MOT %</label>
+                                    <input type="number" id="stampDutyPerc" value="3" step="0.1"
+                                        class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">MOT %</label>
-                                <input type="number" id="stampDutyPerc" value="3" step="0.1"
-                                    class="w-full p-2 border rounded text-xs text-center">
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">Consent (RM)</label>
+                                    <input type="number" id="consentFee" value="0"
+                                        class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">Legal %</label>
+                                    <input type="number" id="lawyerPerc" value="1" step="0.1"
+                                        class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                </div>
                             </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Consent (RM)</label>
-                                <input type="number" id="consentFee" value="0"
-                                    class="w-full p-2 border rounded text-xs text-center">
-                            </div>
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Legal %</label>
-                                <input type="number" id="lawyerPerc" value="1" step="0.1"
-                                    class="w-full p-2 border rounded text-xs text-center">
-                            </div>
-                        </div>
+                        </details>
 
                         <div></div>
                         <button onclick="trackROIUsage()" id="calcBtn"
@@ -260,6 +313,33 @@
 
             <div id="main-content-area" class="lg:col-span-9 space-y-4">
                 <div id="tab-simple" class="tab-content active space-y-6">
+                    <div id="verdict-banner"
+                        class="rounded-2xl p-4 text-center shadow-md transition-colors duration-300 bg-slate-200 dark:bg-slate-700">
+                        <span id="verdict-text" class="font-black uppercase tracking-widest text-sm text-slate-500">Calculating...</span>
+                    </div>
+                    <div class="flex justify-end items-center gap-4 flex-wrap">
+                        <span id="shareMsgSimple" class="text-[10px] text-green-600 font-bold"></span>
+                        <button onclick="window.print()"
+                            class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-500 hover:text-slate-800 transition">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a1 1 0 001-1v-4a1 1 0 00-1-1H9a1 1 0 00-1 1v4a1 1 0 001 1zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                            </svg>
+                            Download Report
+                        </button>
+                        <button onclick="copyShareableLink()"
+                            class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 hover:text-blue-900 transition">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.828 10.172a4 4 0 010 5.656l-4 4a4 4 0 01-5.656-5.656l1.5-1.5M10.172 13.828a4 4 0 010-5.656l4-4a4 4 0 015.656 5.656l-1.5 1.5" />
+                            </svg>
+                            Share This Calculation
+                        </button>
+                    </div>
+                    <div id="print-summary" class="hidden text-xs text-slate-600 pb-4 border-b border-slate-200">
+                        <p class="font-black text-blue-900 text-base uppercase tracking-wide mb-1">PropROICal — Property ROI Report</p>
+                        <p id="print-summary-line"></p>
+                    </div>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div
                             class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
@@ -269,29 +349,29 @@
                                     class="block text-[11px] opacity-70 font-medium normal-case tracking-normal mt-1">(Capex
                                     + Opex)</span>
                             </p>
-                            <p id="bubble-upfront" class="text-3xl font-black">$0</p>
+                            <p id="bubble-upfront" class="text-4xl font-black">RM0</p>
                         </div>
 
                         <div
-                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1">
+                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1 dark:bg-slate-800 dark:border-slate-700">
                             <p
                                 class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest leading-tight">
                                 Monthly Installment</p>
-                            <p id="bubble-installment" class="text-3xl font-black text-red-500">$0</p>
+                            <p id="bubble-installment" class="text-3xl font-black text-red-500">RM0</p>
                         </div>
 
                         <div id="bubble-cashflow-bg"
-                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1">
+                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1 dark:bg-slate-800 dark:border-slate-700">
                             <p
                                 class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest leading-tight">
                                 Monthly Cashflow</p>
-                            <p id="bubble-cashflow" class="text-3xl font-black">$0</p>
+                            <p id="bubble-cashflow" class="text-4xl font-black">RM0</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         <div
-                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1">
+                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1 dark:bg-slate-800 dark:border-slate-700">
                             <p
                                 class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest leading-tight">
                                 Gross Rental Yield</p>
@@ -299,7 +379,7 @@
                         </div>
 
                         <div
-                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1">
+                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-1 dark:bg-slate-800 dark:border-slate-700">
                             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">
                                 Year to ROI Capex
                                 <span
@@ -310,7 +390,7 @@
                         </div>
 
                         <div
-                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-2 md:col-span-1">
+                            class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center col-span-2 md:col-span-1 dark:bg-slate-800 dark:border-slate-700">
                             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">
                                 Breakeven Year
                                 <span
@@ -321,19 +401,19 @@
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4 border-b pb-2 gap-2">
                             <h3 class="text-[13px] font-black text-slate-500 uppercase tracking-widest">Year 1 Detailed
                                 Breakdown</h3>
                             <div class="flex flex-wrap justify-center gap-2">
-                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100">
+                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100 dark:bg-red-950 dark:border-red-900">
                                     <span class="text-[9px] font-bold text-red-400 uppercase mr-2">Total Interest
                                         Payable</span>
-                                    <span id="interest-badge" class="text-[11px] font-black text-red-600">$0</span>
+                                    <span id="interest-badge" class="text-[11px] font-black text-red-600">RM0</span>
                                 </div>
-                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100">
+                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100 dark:bg-red-950 dark:border-red-900">
                                     <span class="text-[9px] font-bold text-red-400 uppercase mr-2">Monthly Maint</span>
-                                    <span id="maint-badge" class="text-[11px] font-black text-red-600">$0</span>
+                                    <span id="maint-badge" class="text-[11px] font-black text-red-600">RM0</span>
                                 </div>
                             </div>
                         </div>
@@ -343,58 +423,58 @@
                                     <p class="text-[10px] font-bold text-slate-400 uppercase">Setup & Entry Cost (Capex)
                                     </p>
                                     <p id="total-capex-breakdown"
-                                        class="text-[12px] font-black text-slate-900 uppercase">Total $0</p>
+                                        class="text-[12px] font-black text-slate-900 dark:text-slate-100 uppercase">Total RM0</p>
                                 </div>
                                 <div class="flex justify-between"><span>Down Payment</span><span id="break-deposit"
-                                        class="font-bold text-slate-900">$0</span></div>
+                                        class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span>First Reno / Setup</span><span id="break-reno"
-                                        class="font-bold text-slate-900">$0</span></div>
+                                        class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span id="label-levy">State Levy</span><span
-                                        id="break-levy" class="font-bold text-slate-900">$0</span></div>
+                                        id="break-levy" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span id="label-mot">Stamp Duty (MOT)</span><span
-                                        id="break-mot" class="font-bold text-slate-900">$0</span></div>
+                                        id="break-mot" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span id="label-legal">Legal Fee</span><span
-                                        id="break-legal" class="font-bold text-slate-900">$0</span></div>
+                                        id="break-legal" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span>Consent Fee</span><span id="break-consent"
-                                        class="font-bold text-slate-900">$0</span></div>
+                                        class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                             </div>
                             <div class="space-y-2 text-center md:text-left">
                                 <div class="flex justify-between border-b pb-1 mb-2">
                                     <p class="text-[10px] font-bold text-slate-400 uppercase">Operations Year 1 (Opex)
                                     </p>
                                     <p id="total-opex-breakdown"
-                                        class="text-[12px] font-black text-slate-900 uppercase">Total $0</p>
+                                        class="text-[12px] font-black text-slate-900 dark:text-slate-100 uppercase">Total RM0</p>
                                 </div>
                                 <div class="flex justify-between"><span>Annual Installments</span><span id="break-inst"
-                                        class="font-bold text-slate-900">$0</span></div>
+                                        class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span>Annual Maintenance</span><span id="break-maint"
-                                        class="font-bold text-slate-900">$0</span></div>
+                                        class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
 
                             </div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 w-full items-stretch">
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-green-100 text-center col-span-1">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-green-100 text-center col-span-1 dark:bg-slate-800 dark:border-green-900">
                             <p class="text-[10px] font-bold text-green-600 uppercase mb-2 tracking-wide">Annual Rental Receivable</p>
-                            <p id="annual-rent" class="text-2xl font-black text-slate-900">$0</p>
+                            <p id="annual-rent" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
                         </div>
 
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-red-100 text-center col-span-1">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-red-100 text-center col-span-1 dark:bg-slate-800 dark:border-red-900">
                             <p class="text-[10px] font-bold text-red-600 uppercase mb-2 tracking-wide">Annual Operations Expenses (Opex)</p>
-                            <p id="annual-exp" class="text-2xl font-black text-slate-900">$0</p>
+                            <p id="annual-exp" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
                         </div>
 
                         <div id="annual-cashflow-bg" class="p-5 rounded-xl shadow-sm border text-center transition-colors col-span-2 md:col-span-1">
                             <p class="text-[10px] font-bold uppercase mb-2 tracking-widest text-slate-500" id="annual-cashflow-label">Annual Cash Flow (Y1)</p>
-                            <p id="annual-cashflow" class="text-2xl font-black">$0</p>
+                            <p id="annual-cashflow" class="text-2xl font-black">RM0</p>
                         </div>
                     </div>
 
-                    <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 text-left">
+                    <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 text-left dark:bg-slate-800 dark:border-slate-700">
                         <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Notes &
                             Assumptions</h4>
-                        <ul class="text-[10px] text-slate-600 space-y-2 list-disc pl-4">
+                        <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
                             <li><strong>Calculations:</strong> Default rates are based on the 2024 Malaysian Budget and
                                 the Solicitors' Remuneration Order (SRO) 2023.</li>
                             <li><strong>Entry Fees:</strong> State Levy, MOT, and Legal Fees are calculated as a
@@ -403,6 +483,9 @@
                                 scale (1% - 4%). For New developments, these are often absorbed by developers (set to 0%
                                 default).</li>
                             <li><strong>Occupancy Assumption:</strong> Rental income assumes a 100% occupancy rate.</li>
+                            <li><strong>Investment Verdict:</strong> The Poor/Fair/Good/Great label above is a quick
+                                heuristic based on Gross Rental Yield and Monthly Cashflow only — it does not account for
+                                appreciation, location, or your personal financial situation, and is not financial advice.</li>
                             <li><strong>Financial Disclaimer:</strong> This calculator is only a guide. Results vary
                                 according to different financial institutions. PropROICal doesn't guarantee its accuracy
                                 or applicability to your circumstances.</li>
@@ -412,13 +495,13 @@
 
 
                 <div id="tab-projection" class="tab-content space-y-4 text-center">
-                    <div class="bg-white p-4 rounded-xl shadow border border-slate-200 h-80 relative">
+                    <div class="bg-white p-4 rounded-xl shadow border border-slate-200 h-80 relative dark:bg-slate-800 dark:border-slate-700">
                         <canvas id="trendChart"></canvas>
                     </div>
-                    <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden">
+                    <div class="bg-white rounded-xl shadow border border-slate-200 overflow-hidden dark:bg-slate-800 dark:border-slate-700">
                         <div class="overflow-x-auto">
                             <table class="w-full text-center min-w-[850px]">
-                                <thead class="bg-slate-50 border-b text-[9px] font-black text-slate-400 uppercase">
+                                <thead class="bg-slate-50 border-b text-[9px] font-black text-slate-400 uppercase dark:bg-slate-900 dark:border-slate-700">
                                     <tr>
                                         <th class="p-4">Period</th>
                                         <th class="p-4">Prop Value</th>
@@ -426,17 +509,17 @@
                                         <th class="p-4">Loan Bal</th>
                                         <th class="p-4">Accum Exp</th>
                                         <th class="p-4 text-slate-400">Yearly Cashflow</th>
-                                        <th class="p-4 bg-blue-50 text-blue-900">Accum Net Profit/Lost</th>
+                                        <th class="p-4 bg-blue-50 text-blue-900 dark:bg-blue-950 dark:text-blue-300">Accum Net Profit/Lost</th>
                                     </tr>
                                 </thead>
-                                <tbody id="projection-table" class="text-[10px] divide-y divide-slate-100"></tbody>
+                                <tbody id="projection-table" class="text-[10px] divide-y divide-slate-100 dark:divide-slate-700"></tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 text-left">
+                    <div class="bg-slate-100 p-6 rounded-2xl border border-slate-200 text-left dark:bg-slate-800 dark:border-slate-700">
                         <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-3">Projection
                             Notes & Estimations</h4>
-                        <ul class="text-[10px] text-slate-600 space-y-2 list-disc pl-4">
+                        <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
                             <li><strong>Property Value Estimation:</strong> Calculations use a phased appreciation
                                 multiplier based on historical trends</li>
                             <li><strong>Occupancy Assumption:</strong> Rental income assumes a 100% occupancy rate.</li>
@@ -454,9 +537,9 @@
 
                 <div id="tab-about" class="tab-content">
                     <div class="max-w-3xl mx-auto space-y-6 text-left">
-                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+                        <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
                             <h2 class="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Our Mission</h2>
-                            <p class="text-slate-600 text-sm leading-relaxed">
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                                 PropROICal was developed to streamline the property evaluation process in the Malaysian
                                 market.
                                 We provide investors and agents with instant, accurate metrics across multiple listings,
@@ -465,14 +548,14 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 dark:bg-blue-950 dark:border-blue-900">
                                 <h3 class="font-bold text-blue-800 text-xs uppercase mb-2">🚀 Speed</h3>
-                                <p class="text-xs text-slate-600">Calculate ROI, Payables, and move-in costs in seconds
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Calculate ROI, Payables, and move-in costs in seconds
                                     instead of hours.</p>
                             </div>
-                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                            <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 dark:bg-blue-950 dark:border-blue-900">
                                 <h3 class="font-bold text-blue-800 text-xs uppercase mb-2">🎯 Accuracy</h3>
-                                <p class="text-xs text-slate-600">Updated with 2025 Malaysian Stamp Duty rates and SST
+                                <p class="text-xs text-slate-600 dark:text-slate-400">Updated with 2025 Malaysian Stamp Duty rates and SST
                                     regulations.</p>
                             </div>
                         </div>
@@ -481,10 +564,10 @@
 
                 <div id="tab-contact" class="tab-content">
                     <div
-                        class="bg-white p-8 rounded-2xl shadow-md border border-slate-200 max-w-2xl mx-auto text-center">
+                        class="bg-white p-8 rounded-2xl shadow-md border border-slate-200 max-w-2xl mx-auto text-center dark:bg-slate-800 dark:border-slate-700">
                         <h2 class="text-xl font-bold text-blue-900 mb-4 uppercase tracking-wider">Get in Touch</h2>
 
-                        <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">
                             We value your feedback. Please let us know if you encounter any calculation
                             inaccuracies or have suggestions for new features. We are constantly
                             working to improve PropROICal for the Malaysian property community.
@@ -494,18 +577,18 @@
                                 <div>
                                     <label class="text-[10px] font-bold text-slate-400 uppercase">Your Name</label>
                                     <input type="text" name="name" required
-                                        class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500">
+                                        class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-bold text-slate-400 uppercase">Email Address</label>
                                     <input type="email" name="email" required
-                                        class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500">
+                                        class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                                 </div>
                             </div>
                             <div class="text-left">
                                 <label class="text-[10px] font-bold text-slate-400 uppercase">Message</label>
                                 <textarea name="message" rows="5" required
-                                    class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500"></textarea>
+                                    class="w-full p-3 bg-slate-50 border rounded-lg text-xs outline-none focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100"></textarea>
                             </div>
                             <button type="submit"
                                 class="blue-gradient text-white font-bold py-3 px-8 rounded-lg text-xs shadow hover:opacity-90 w-full transition uppercase tracking-widest">Send
@@ -534,9 +617,146 @@
                                 </svg>
                                 Copy Link
                             </button>
+
+                            <button onclick="copyShareableLink()"
+                                class="flex items-center justify-center gap-2 bg-blue-700 text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-blue-800 transition-all shadow-md w-full sm:w-auto">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Copy This Calculation
+                            </button>
                         </div>
 
                         <p id="shareMsg" class="text-green-600 text-[10px] mt-2 font-bold h-2 text-center"></p>
+                    </div>
+                </div>
+
+                <div id="tab-compare" class="tab-content space-y-4">
+                    <div class="bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-xl p-4 text-xs text-blue-800 dark:text-blue-300 flex items-center justify-between flex-wrap gap-2">
+                        <span><strong>Property A</strong> is your current calculation from the Simple tab. Fill in Property B to compare them side by side.</span>
+                        <button onclick="switchTab('simple')"
+                            class="text-[10px] font-bold uppercase underline whitespace-nowrap">Edit Property A</button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                            <h3 class="text-[11px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest text-center mb-3">Property A (Current)</h3>
+                            <p id="compare-a-summary" class="text-[11px] text-slate-500 dark:text-slate-400 text-center leading-relaxed"></p>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-5">
+                            <h3 class="text-[11px] font-bold text-blue-800 dark:text-blue-400 uppercase tracking-widest text-center mb-3">Property B</h3>
+                            <div class="space-y-3" id="compare-input-container-b">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Prop Type</label>
+                                        <select id="propTypeB"
+                                            class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                                            <option value="new" selected>New</option>
+                                            <option value="resale">Resale</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Property Class</label>
+                                        <select id="propClassB"
+                                            class="w-full p-2 bg-blue-50 border border-blue-100 rounded text-xs font-bold text-center text-blue-800 dark:bg-slate-900 dark:border-blue-900 dark:text-blue-300">
+                                            <option value="landed" selected>Landed House</option>
+                                            <option value="highrise">Highrise / Condo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Price (RM)</label>
+                                        <input type="number" id="priceB" value="1230000"
+                                            class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Loan Tenure (Yrs)</label>
+                                        <input type="number" id="loanTenureB" value="30"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Down Payment %</label>
+                                        <input type="number" id="depositPercB" value="10"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Interest % p.a.</label>
+                                        <input type="number" id="interestB" value="3.5" step="0.1"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Rent (RM)</label>
+                                        <input type="number" id="rentalB" value="4000"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Sqft (Built-up)</label>
+                                        <input type="number" id="sqftB" value="1750"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Maint/Sqft (RM)</label>
+                                        <input type="number" id="maintSqftB" value="0.20" step="0.01"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                    <div>
+                                        <label class="text-[9px] font-bold text-slate-400 uppercase">First Reno Cost (RM)</label>
+                                        <input type="number" id="setupB" value="150000"
+                                            class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                    </div>
+                                </div>
+                                <details class="pt-3 border-t border-slate-100 dark:border-slate-700">
+                                    <summary class="text-[10px] font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider text-center cursor-pointer select-none">
+                                        Entry Fees % (defaults to 0 — tap to adjust)</summary>
+                                    <div class="grid grid-cols-2 gap-2 mt-3">
+                                        <div>
+                                            <label class="text-[9px] font-bold text-slate-400 uppercase">Levy %</label>
+                                            <input type="number" id="levyPercB" value="0" step="0.1"
+                                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                        </div>
+                                        <div>
+                                            <label class="text-[9px] font-bold text-slate-400 uppercase">MOT %</label>
+                                            <input type="number" id="stampDutyPercB" value="0" step="0.1"
+                                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 mt-2">
+                                        <div>
+                                            <label class="text-[9px] font-bold text-slate-400 uppercase">Consent (RM)</label>
+                                            <input type="number" id="consentFeeB" value="0"
+                                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                        </div>
+                                        <div>
+                                            <label class="text-[9px] font-bold text-slate-400 uppercase">Legal %</label>
+                                            <input type="number" id="lawyerPercB" value="0" step="0.1"
+                                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                        </div>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+                        <table class="w-full">
+                            <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
+                                <tr>
+                                    <th class="p-3 text-left">Metric</th>
+                                    <th class="p-3">Property A</th>
+                                    <th class="p-3">Property B</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compare-table"></tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -560,7 +780,7 @@
     </script>
 
     <template id="tenant-quote-template">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
             <div class="blue-gradient p-6 text-white text-center">
                 <h1 class="text-xl font-bold uppercase tracking-wider">Tenant Rental Quote</h1>
                 <p class="mt-2 text-sm opacity-90 max-w-lg mx-auto leading-relaxed">
@@ -574,12 +794,12 @@
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Monthly Rental
                             (RM)</label>
                         <input type="number" id="rentalFee" value="4400"
-                            class="w-full p-3 bg-slate-50 border rounded-lg font-bold text-blue-900 outline-none focus:border-blue-500">
+                            class="w-full p-3 bg-slate-50 border rounded-lg font-bold text-blue-900 outline-none focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:text-blue-300">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Tenure (Years)</label>
                         <select id="tenure" onchange="autoUpdateDeposits()"
-                            class="w-full p-3 bg-slate-50 border rounded-lg outline-none focus:border-blue-500">
+                            class="w-full p-3 bg-slate-50 border rounded-lg outline-none focus:border-blue-500 dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             <option value="1">1 Year</option>
                             <option value="2" selected>2 Years</option>
                             <option value="3">3 Years</option>
@@ -589,38 +809,38 @@
                         <label class="text-[10px] font-bold text-slate-500 uppercase mb-1">Security Deposit
                             (mths)</label>
                         <input type="number" id="secDepMths" value="2" step="0.5"
-                            class="w-full p-3 bg-slate-50 border rounded-lg">
+                            class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase mb-1 block">Utility Deposit
                             (mths)</label>
                         <input type="number" id="utilDepMths" value="0.5" step="0.1"
-                            class="w-full p-3 bg-slate-50 border rounded-lg">
+                            class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase mb-1 block">Renovation Deposit
                             (mths)</label>
                         <input type="number" id="renoDepMths" value="0" step="0.1"
-                            class="w-full p-3 bg-slate-50 border rounded-lg">
+                            class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Tenancy Agreement Fee
                             (RM)</label>
-                        <input type="number" id="adminFee" value="0" class="w-full p-3 bg-slate-50 border rounded-lg">
+                        <input type="number" id="adminFee" value="0" class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Agency Fee
                             (mths)</label>
                         <input type="number" id="agencyRate" value="0" step="0.1"
-                            class="w-full p-3 bg-slate-50 border rounded-lg">
+                            class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-500 uppercase mb-1">Other Deposit (mths)</label>
                         <input type="number" id="extraDepMths" value="0" step="0.5"
-                            class="w-full p-3 bg-slate-50 border rounded-lg">
+                            class="w-full p-3 bg-slate-50 border rounded-lg dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                     </div>
                 </div>
-                <div class="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                <div class="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-100 dark:bg-blue-950 dark:border-blue-900">
                     <input type="checkbox" id="bookingSST" checked class="w-4 h-4 cursor-pointer">
                     <label for="bookingSST" class="text-xs font-bold text-blue-800 cursor-pointer">Booking Fee with 8%
                         SST</label>
@@ -632,7 +852,7 @@
                 <div id="quoteResult" class="hidden space-y-4">
                     <div class="relative">
                         <textarea id="quoteText" readonly rows="31"
-                            class="w-full p-5 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-900 font-mono"></textarea>
+                            class="w-full p-5 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-900 font-mono dark:bg-slate-800 dark:border-blue-900 dark:text-blue-200"></textarea>
                         <button onclick="copyQuote()"
                             class="absolute top-3 right-3 bg-blue-600 text-white text-[10px] px-3 py-1 rounded font-bold hover:bg-blue-700">COPY</button>
                     </div>
