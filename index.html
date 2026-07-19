@@ -48,29 +48,49 @@
             display: block;
         }
 
+        /* Flat header-bar tab buttons (About, Contact) sitting directly on the dark green header */
         .tab-btn {
-            color: var(--ink-mid, #5B5138);
+            color: #E9E0C8;
         }
 
         .tab-btn:hover {
-            background-color: var(--paper-input, #F7F1DF);
+            color: #ffffff;
         }
 
         .tab-btn.active {
-            color: #17392A !important;
+            color: #ffffff !important;
             font-weight: 800;
+            border-bottom: 3px solid #ffffff;
+        }
+
+        /* Tab buttons nested inside the Property ROI dropdown sit on a light/dark panel,
+           not the green header -- override to ink-on-cream instead of white-on-transparent. */
+        #property-dropdown-panel .tab-btn {
+            color: var(--ink-mid, #5B5138);
+            border-bottom: none;
+        }
+
+        #property-dropdown-panel .tab-btn:hover {
+            color: var(--ink-mid, #5B5138);
             background-color: var(--paper-input, #F7F1DF);
         }
 
-        html.dark .tab-btn {
+        #property-dropdown-panel .tab-btn.active {
+            color: #17392A !important;
+            font-weight: 800;
+            border-bottom: none;
+            background-color: var(--paper-input, #F7F1DF);
+        }
+
+        html.dark #property-dropdown-panel .tab-btn {
             color: #E0D5B8;
         }
 
-        html.dark .tab-btn:hover {
+        html.dark #property-dropdown-panel .tab-btn:hover {
             background-color: #2E271C;
         }
 
-        html.dark .tab-btn.active {
+        html.dark #property-dropdown-panel .tab-btn.active {
             color: #7FC49E !important;
             background-color: #2E271C;
         }
@@ -289,7 +309,7 @@
                         </svg>
                     </button>
                     <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-50">
-                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
+                        <div id="property-dropdown-panel" class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
                             <button onclick="switchTab('simple')" id="btn-simple"
                                 class="tab-btn active block w-full text-left px-4 py-2 text-xs transition">Simple</button>
                             <button onclick="switchTab('projection')" id="btn-projection"
@@ -298,10 +318,6 @@
                                 class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Compare</button>
                             <button onclick="switchTab('tenant-rental-quote')" id="btn-tenant-rental-quote"
                                 class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Tenant Rental Quote</button>
-                            <button onclick="switchTab('about')" id="btn-about"
-                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">About</button>
-                            <button onclick="switchTab('contact')" id="btn-contact"
-                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -323,6 +339,11 @@
                         </div>
                     </div>
                 </div>
+
+                <button onclick="switchTab('about')" id="btn-about"
+                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider transition">About</button>
+                <button onclick="switchTab('contact')" id="btn-contact"
+                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider transition">Contact</button>
             </nav>
         </div>
     </header>
