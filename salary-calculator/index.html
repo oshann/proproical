@@ -87,7 +87,7 @@
     <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
             <div>
-                <a href="../"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
+                <a href="../index.html"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
                 <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Free Malaysian Finance Tools</p>
             </div>
             <nav class="flex flex-wrap justify-center gap-4 items-center">
@@ -102,10 +102,25 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <a href="../" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Property ROI</a>
-                <a href="./" class="text-[11px] uppercase tracking-wider text-white font-bold border-b-2 border-white pb-1">Salary Calculator</a>
-                <a href="../epf-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">EPF Calculator</a>
-                <a href="../income-tax-calculator/" class="text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">Income Tax</a>
+                <div class="relative group">
+                    <button type="button"
+                        class="flex items-center gap-1 pb-1 text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">
+                        More Tools
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="absolute right-0 top-full pt-2 hidden group-hover:block z-50">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
+                            <p class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Property</p>
+                            <a href="../index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Property ROI Calculator</a>
+                            <p class="px-4 py-1 mt-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest border-t border-slate-100 dark:border-slate-700 pt-2">Personal Finance</p>
+                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">Salary Calculator</span>
+                            <a href="../epf-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">EPF Calculator</a>
+                            <a href="../income-tax-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Income Tax Calculator</a>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -157,14 +172,24 @@
 
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
                     <h3 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b dark:border-slate-700 pb-2">Deduction Breakdown</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-xs">
-                        <div class="flex justify-between"><span>EPF (Employee)</span><span id="result-epf-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>EPF (Employer)</span><span id="result-epf-employer" class="font-bold text-slate-400">RM0</span></div>
-                        <div class="flex justify-between"><span>SOCSO (Employee)</span><span id="result-socso-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>SOCSO (Employer)</span><span id="result-socso-employer" class="font-bold text-slate-400">RM0</span></div>
-                        <div class="flex justify-between"><span>EIS (Employee)</span><span id="result-eis-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>EIS (Employer)</span><span id="result-eis-employer" class="font-bold text-slate-400">RM0</span></div>
-                        <div class="flex justify-between col-span-1 md:col-span-2 border-t dark:border-slate-700 pt-2 mt-1"><span class="font-bold">Estimated Monthly Tax (PCB)</span><span id="result-tax" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-xs">
+                        <div>
+                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-2">Deducted From Your Salary</p>
+                            <div class="space-y-2">
+                                <div class="flex justify-between"><span>EPF (Employee)</span><span id="result-epf-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                                <div class="flex justify-between"><span>SOCSO (Employee)</span><span id="result-socso-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                                <div class="flex justify-between"><span>EIS (Employee)</span><span id="result-eis-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                                <div class="flex justify-between border-t dark:border-slate-700 pt-2"><span class="font-bold">Estimated Monthly Tax (PCB)</span><span id="result-tax" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Employer Also Contributes (Not Deducted From You)</p>
+                            <div class="space-y-2">
+                                <div class="flex justify-between"><span>EPF (Employer)</span><span id="result-epf-employer" class="font-bold text-slate-400">RM0</span></div>
+                                <div class="flex justify-between"><span>SOCSO (Employer)</span><span id="result-socso-employer" class="font-bold text-slate-400">RM0</span></div>
+                                <div class="flex justify-between"><span>EIS (Employer)</span><span id="result-eis-employer" class="font-bold text-slate-400">RM0</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -202,9 +227,9 @@
         <div class="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700 text-center">
             <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-2">More Free Tools</p>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="../" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
-                <a href="../epf-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
-                <a href="../income-tax-calculator/" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
+                <a href="../index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
+                <a href="../epf-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
+                <a href="../income-tax-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
             </div>
         </div>
     </main>
