@@ -43,6 +43,122 @@
         .metric-bubble:hover {
             transform: translateY(-2px);
         }
+
+        /* ============ Paper Ledger Theme ============ */
+        :root {
+            --paper-bg: #F3EEDF;
+            --paper-card: #FBF8F0;
+            --paper-card-alt: #EFE8D3;
+            --paper-input: #F7F1DF;
+            --ledger-line: #DDD0AC;
+            --ledger-line-soft: #E8DEC0;
+            --ink: #262019;
+            --ink-strong: #1C1710;
+            --ink-mid: #5B5138;
+            --ink-soft: #857A5F;
+        }
+        html.dark {
+            --paper-bg: #1B1710;
+            --paper-card: #262019;
+            --paper-card-alt: #2E271C;
+            --paper-input: #211C14;
+            --ledger-line: #3A3222;
+            --ledger-line-soft: #443A26;
+            --ink: #EDE4CC;
+            --ink-strong: #F5EFDC;
+            --ink-mid: #C9BC94;
+            --ink-soft: #B3A47F;
+        }
+
+        body { background-color: var(--paper-bg) !important; color: var(--ink) !important; }
+
+        /* Surfaces (light) */
+        .bg-white { background-color: var(--paper-card) !important; }
+        .bg-slate-50 { background-color: var(--paper-input) !important; }
+        .bg-slate-100 { background-color: var(--paper-card-alt) !important; }
+        .bg-slate-200 { background-color: var(--ledger-line) !important; }
+        .bg-gray-100 { background-color: var(--paper-card-alt) !important; }
+        .hover\:bg-slate-50:hover { background-color: var(--paper-input) !important; }
+        .bg-slate-800 { background-color: #322A1C !important; }
+        .hover\:bg-slate-900:hover { background-color: #241E14 !important; }
+
+        /* Surfaces (dark) -- gated on the html.dark ancestor, matching Tailwind's own :is(.dark *) gating */
+        html.dark .dark\:bg-slate-900 { background-color: #1B1710 !important; }
+        html.dark .dark\:bg-slate-800 { background-color: #262019 !important; }
+        html.dark .dark\:hover\:bg-slate-700:hover { background-color: #2E271C !important; }
+
+        /* Borders (light) */
+        .border-slate-100, .border-slate-200 { border-color: var(--ledger-line-soft) !important; }
+        .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--ledger-line-soft) !important; }
+
+        /* Borders (dark) */
+        html.dark .dark\:border-slate-600, html.dark .dark\:border-slate-700 { border-color: #3A3222 !important; }
+        html.dark .dark\:divide-slate-700 > :not([hidden]) ~ :not([hidden]) { border-color: #3A3222 !important; }
+
+        /* Text (light) */
+        .text-slate-400, .text-slate-500 { color: var(--ink-soft) !important; }
+        .text-slate-600, .text-slate-700 { color: var(--ink-mid) !important; }
+        .text-slate-800, .text-slate-900, .text-black-700 { color: var(--ink) !important; }
+        .text-white { color: #F7F2E3 !important; }
+
+        /* Text (dark) */
+        html.dark .dark\:text-slate-100, html.dark .dark\:text-slate-200 { color: #EDE4CC !important; }
+        html.dark .dark\:text-slate-400, html.dark .dark\:text-slate-500 { color: #B3A47F !important; }
+
+        /* Brand green (replaces blue) -- light */
+        .bg-blue-900 { background-color: #17392A !important; }
+        .bg-blue-800 { background-color: #1F4D3A !important; }
+        .bg-blue-700 { background-color: #275F47 !important; }
+        .hover\:bg-blue-800:hover { background-color: #1F4D3A !important; }
+        .bg-blue-600 { background-color: #2E6E52 !important; }
+        .bg-blue-50 { background-color: #EEF4EE !important; }
+        .border-blue-100 { border-color: #C3DBCB !important; }
+        .border-blue-500, .focus\:border-blue-500:focus { border-color: #2E6E52 !important; }
+        .border-blue-800 { border-color: #1F4D3A !important; }
+        .text-blue-100 { color: #E9E0C8 !important; }
+        .text-blue-200 { color: #D9CBA3 !important; }
+        .text-blue-600, .text-blue-700 { color: #275F47 !important; }
+        .text-blue-800, .text-blue-900 { color: #17392A !important; }
+
+        /* Brand green -- dark */
+        html.dark .dark\:bg-blue-950 { background-color: #1A2E22 !important; }
+        html.dark .dark\:border-blue-900 { border-color: #2A4A38 !important; }
+        html.dark .dark\:text-blue-200, html.dark .dark\:text-blue-300, html.dark .dark\:text-blue-400 { color: #7FC49E !important; }
+
+        /* Success / positive -- light (shares the ledger-green family) */
+        .bg-green-50 { background-color: #E7F0EA !important; }
+        .bg-green-500 { background-color: #2E6E52 !important; }
+        .border-green-100 { border-color: #C9DDCE !important; }
+        .border-green-200 { border-color: #B3CEBC !important; }
+        .text-green-600, .text-green-700 { color: #275F47 !important; }
+
+        /* Success / positive -- dark */
+        html.dark .dark\:border-green-900 { border-color: #2A4A38 !important; }
+        html.dark .dark\:text-green-300, html.dark .dark\:text-green-400 { color: #7FC49E !important; }
+
+        /* Danger / negative -- light (ledger oxblood) */
+        .bg-red-50 { background-color: #F5E6E2 !important; }
+        .bg-red-500 { background-color: #9C3830 !important; }
+        .border-red-100 { border-color: #EDD3CB !important; }
+        .border-red-200 { border-color: #DDB3A8 !important; }
+        .text-red-400 { color: #B15A50 !important; }
+        .text-red-500 { color: #9C3830 !important; }
+        .text-red-600, .text-red-700 { color: #7A2921 !important; }
+
+        /* Danger / negative -- dark */
+        html.dark .dark\:bg-red-950 { background-color: #34211D !important; }
+        html.dark .dark\:border-red-900 { border-color: #4A2E27 !important; }
+        html.dark .dark\:text-red-300 { color: #C97B72 !important; }
+
+        /* Verdict gauge "fair" state */
+        .bg-yellow-400 { background-color: #C9A227 !important; }
+
+        /* Misc hover states + verdict-banner default fallback */
+        html.dark .dark\:bg-slate-700 { background-color: #2E271C !important; }
+        .hover\:text-white:hover { color: #F7F2E3 !important; }
+        .hover\:text-slate-800:hover { color: var(--ink) !important; }
+        .hover\:text-blue-900:hover { color: #17392A !important; }
+        .hover\:bg-blue-700:hover { color: #275F47 !important; background-color: #275F47 !important; }
     </style>
 
     <script type="application/ld+json">
@@ -84,7 +200,7 @@
 
 <body class="bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
 
-    <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+    <header class="blue-gradient text-white py-6 px-4 shadow-lg mb-4" style="background: linear-gradient(135deg, #17392A 0%, #2E6E52 100%);">
         <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-3">
             <div>
                 <a href="../index.html"><h1 class="text-2xl font-black tracking-tighter italic leading-none">PropROICal</h1></a>
