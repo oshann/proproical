@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Free EPF (KWSP) retirement calculator for Malaysia. Project your EPF savings growth to retirement based on your current balance, salary, and assumed dividend rate.">
+        content="Free Malaysia hire purchase / car loan calculator. Compare the old flat-rate method against the new reducing-balance (EIR) method under the Hire Purchase (Amendment) Act 2026, side by side.">
     <meta name="keywords"
-        content="EPF Calculator, KWSP Calculator Malaysia, EPF Retirement Calculator, KWSP Dividend Calculator, EPF Projection">
+        content="Hire Purchase Calculator Malaysia, Car Loan Calculator Malaysia, Flat Rate vs Reducing Balance, EIR Car Loan Malaysia, Hire Purchase Amendment Act 2026">
     <meta name="author" content="PropROICal">
-    <link rel="canonical" href="https://proproical.com/epf-calculator/">
+    <link rel="canonical" href="https://proproical.com/hire-purchase-calculator/">
 
-    <title>EPF Calculator Malaysia | KWSP Retirement Savings Projection</title>
+    <title>Hire Purchase Calculator Malaysia | Flat Rate vs Reducing Balance (2026)</title>
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="apple-touch-icon" href="../favicon.png">
 
@@ -165,11 +165,11 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Malaysia EPF (KWSP) Retirement Calculator",
-        "url": "https://proproical.com/epf-calculator/",
+        "name": "Malaysia Hire Purchase Calculator (Flat Rate vs Reducing Balance)",
+        "url": "https://proproical.com/hire-purchase-calculator/",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Any",
-        "description": "Free calculator to project EPF/KWSP retirement savings growth in Malaysia based on current balance, salary, and an assumed dividend rate.",
+        "description": "Free calculator comparing the old flat-rate hire purchase method against the new reducing-balance / EIR method introduced by Malaysia's Hire Purchase (Amendment) Act 2026.",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MYR" }
     }
     </script>
@@ -180,18 +180,18 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "How much will my EPF grow by retirement?",
-                "acceptedAnswer": { "@type": "Answer", "text": "It depends on your current balance, monthly salary (which determines your contributions), years to retirement, and the dividend rate EPF declares each year. This calculator projects growth using your own inputs and an assumed dividend rate you can adjust." }
+                "name": "What changed with the Hire Purchase (Amendment) Act 2026?",
+                "acceptedAnswer": { "@type": "Answer", "text": "From 1 June 2026, new hire purchase agreements in Malaysia move from the old flat-rate interest method (with the Rule of 78 for early settlement) to an Effective Interest Rate (EIR) reducing-balance method, where interest is charged on the outstanding balance rather than the original loan amount." }
             },
             {
                 "@type": "Question",
-                "name": "What EPF dividend rate should I assume?",
-                "acceptedAnswer": { "@type": "Answer", "text": "EPF declares its dividend rate annually and it varies year to year -- it is not fixed or guaranteed. This calculator defaults to a conservative illustrative rate that you can adjust to see different scenarios; it is not an official EPF forecast." }
+                "name": "Does this affect my existing car loan?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. The new rules apply to new hire purchase agreements signed from 1 June 2026 onward. Existing loans keep their original flat-rate terms unless refinanced. Rollout is also phased across lenders, so not every bank has switched yet." }
             },
             {
                 "@type": "Question",
-                "name": "What EPF contribution rate does this calculator use?",
-                "acceptedAnswer": { "@type": "Answer", "text": "11% employee / 13% or 12% employer (depending on wage band) for ages below 60, and 0% employee / 4% employer from age 60 onward, matching current EPF Act rates. It assumes your salary stays constant over the projection period." }
+                "name": "How is the reducing-balance EIR estimated here?",
+                "acceptedAnswer": { "@type": "Answer", "text": "This calculator estimates an equivalent EIR from your flat rate using the standard approximation EIR ~= 2 x tenure(years) x flat rate / (tenure(years) + 1), then amortizes it like a reducing-balance loan. It is an illustrative estimate, not an official bank quote." }
             }
         ]
     }
@@ -247,9 +247,9 @@
                     <div class="absolute right-0 md:left-0 top-full pt-2 hidden group-hover:block z-50">
                         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
                             <a href="../salary-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Salary Calculator</a>
-                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">EPF Calculator</span>
+                            <a href="../epf-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">EPF Calculator</a>
                             <a href="../income-tax-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Income Tax Calculator</a>
-                            <a href="../hire-purchase-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Hire Purchase Calculator</a>
+                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">Hire Purchase Calculator</span>
                         </div>
                     </div>
                 </div>
@@ -263,96 +263,128 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-4 pb-10">
-        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">EPF (KWSP) Retirement Calculator</h2>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Project how your EPF savings could grow between now and retirement.</p>
+        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">Hire Purchase Calculator: Flat Rate vs Reducing Balance</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Key in your loan details once and compare the old flat-rate method against the new reducing-balance (EIR) method side by side.</p>
+
+        <div class="bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-900 rounded-xl p-4 text-[11px] text-blue-800 dark:text-blue-300 mb-6 leading-relaxed">
+            From 1 June 2026, the <strong>Hire Purchase (Amendment) Act 2026</strong> replaces the old flat-rate + Rule of 78 method with an Effective Interest Rate (EIR) reducing-balance method for new loans. This only applies to <strong>new agreements</strong> and is rolling out across lenders in phases -- existing loans keep their original terms.
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 space-y-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
                     <div class="flex items-center justify-between mb-4 border-b dark:border-slate-700 pb-2">
-                        <h3 class="text-blue-900 dark:text-blue-400 font-bold uppercase text-[11px] tracking-widest">Your Details</h3>
+                        <h3 class="text-blue-900 dark:text-blue-400 font-bold uppercase text-[11px] tracking-widest">Loan Details</h3>
                         <button type="button" onclick="if(confirm('Reset all inputs to default values?')) resetToDefaults()"
                             class="text-[9px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-600 transition">Reset</button>
                     </div>
                     <div class="space-y-3" id="input-container">
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Current Age</label>
-                                <input type="number" id="currentAge" value="30"
-                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
-                            </div>
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Target Age</label>
-                                <input type="number" id="targetAge" value="60"
-                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
-                            </div>
-                        </div>
                         <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Current EPF Balance (RM)</label>
-                            <input type="text" inputmode="decimal" id="currentBalance" value="20,000"
-                                class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
-                        </div>
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Salary (RM)</label>
-                            <input type="text" inputmode="decimal" id="monthlySalary" value="5,000"
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Car Price (RM)</label>
+                            <input type="text" inputmode="decimal" id="carPrice" value="100,000"
                                 class="comma-fmt w-full p-2 border border-blue-100 bg-blue-50 rounded text-xs text-blue-700 font-bold text-center dark:bg-slate-900 dark:border-blue-900 dark:text-blue-300">
                         </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Down Payment (%)</label>
+                                <input type="number" id="downPaymentPct" value="10" step="1"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Tenure (Years)</label>
+                                <input type="number" id="loanTenure" value="7" min="1" max="9"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                        </div>
                         <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Assumed Annual Dividend Rate (%)</label>
-                            <input type="number" id="dividendRate" value="5.5" step="0.1"
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Quoted Flat Interest Rate (% p.a.)</label>
+                            <input type="number" id="flatRate" value="2.75" step="0.05"
                                 class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                         </div>
                     </div>
                     <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
-                        EPF's actual dividend rate is declared annually and is not fixed -- adjust this to explore different scenarios.
+                        Enter the flat rate as quoted by the dealer/bank -- this calculator derives an equivalent reducing-balance EIR from it to build the "New Method" comparison.
                     </p>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-4">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
-                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Projected Balance</p>
-                        <p id="result-projected" class="text-2xl font-black break-words leading-tight">RM0</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="metric-bubble bg-red-50 dark:bg-red-950 p-6 rounded-2xl shadow-md border border-red-100 dark:border-red-900 text-center">
+                        <p class="text-[10px] font-bold text-red-600 dark:text-red-300 uppercase tracking-widest mb-1">Old Method &mdash; Flat Rate</p>
+                        <p class="text-[9px] text-slate-400 dark:text-slate-500 uppercase mb-3">Pre-June 2026</p>
+                        <p id="result-old-monthly" class="text-2xl font-black break-words leading-tight text-red-700 dark:text-red-300">RM0</p>
+                        <p class="text-[9px] text-slate-400 uppercase mt-1">per month</p>
+                        <div class="mt-4 pt-3 border-t border-red-100 dark:border-red-900 grid grid-cols-2 gap-2 text-left">
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase">Total Interest</p>
+                                <p id="result-old-interest" class="text-xs font-bold text-slate-700 dark:text-slate-200">RM0</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase">Total Payable</p>
+                                <p id="result-old-total" class="text-xs font-bold text-slate-700 dark:text-slate-200">RM0</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Contributed</p>
-                        <p id="result-contributed" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
-                    </div>
-                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Dividends</p>
-                        <p id="result-dividends" class="text-2xl font-black text-green-600">RM0</p>
+
+                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white">
+                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1">New Method &mdash; Reducing Balance</p>
+                        <p class="text-[9px] text-blue-200 uppercase mb-3">From 1 June 2026 (EIR)</p>
+                        <p id="result-new-monthly" class="text-2xl font-black break-words leading-tight">RM0</p>
+                        <p class="text-[9px] text-blue-200 uppercase mt-1">per month</p>
+                        <div class="mt-4 pt-3 border-t border-blue-800 grid grid-cols-2 gap-2 text-left">
+                            <div>
+                                <p class="text-[9px] text-blue-200 uppercase">Total Interest</p>
+                                <p id="result-new-interest" class="text-xs font-bold">RM0</p>
+                            </div>
+                            <div>
+                                <p class="text-[9px] text-blue-200 uppercase">Total Payable</p>
+                                <p id="result-new-total" class="text-xs font-bold">RM0</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-200 dark:border-slate-700 h-80 relative">
-                    <canvas id="trendChart"></canvas>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Estimated EIR</p>
+                        <p id="result-eir" class="text-xl font-black text-slate-900 dark:text-slate-100">0.00%</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Monthly Savings</p>
+                        <p id="result-monthly-savings" class="text-xl font-black text-green-600">RM0</p>
+                    </div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Interest Saved</p>
+                        <p id="result-interest-savings" class="text-xl font-black text-green-600">RM0</p>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-200 dark:border-slate-700 h-72 relative">
+                    <canvas id="compareChart"></canvas>
                 </div>
 
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-center min-w-[600px]">
-                            <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
-                                <tr>
-                                    <th class="p-4">Age</th>
-                                    <th class="p-4">Projected Balance</th>
-                                    <th class="p-4">Annual Contribution</th>
-                                    <th class="p-4">Total Contributed So Far</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projection-table" class="text-[10px] divide-y divide-slate-100 dark:divide-slate-700"></tbody>
-                        </table>
-                    </div>
+                    <table class="w-full text-center">
+                        <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
+                            <tr>
+                                <th class="p-3 text-left">Metric</th>
+                                <th class="p-3">Old &mdash; Flat Rate</th>
+                                <th class="p-3">New &mdash; Reducing Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="compare-table" class="text-[11px] divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+                    </table>
                 </div>
 
                 <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-left">
                     <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated</h4>
                     <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
-                        <li><strong>Contribution rates:</strong> 11% employee / 13% (wages up to RM5,000) or 12% employer (above RM5,000) for ages below 60; 0% employee / 4% employer from age 60. Starting balance shown here: <span id="result-starting">RM0</span>.</li>
-                        <li><strong>Compounding:</strong> Contributions are added annually and the assumed dividend rate is applied once per year -- a simplified model, not month-by-month compounding.</li>
-                        <li><strong>Salary assumption:</strong> Your monthly salary is assumed to stay constant for the whole projection (no raises modeled).</li>
-                        <li><strong>Dividend rate:</strong> EPF declares its dividend rate annually and it is not guaranteed or fixed -- the rate here is a user-adjustable assumption, not an official forecast.</li>
-                        <li><strong>Disclaimer:</strong> This calculator is a guide only and does not replace your official EPF statement or KWSP's own tools.</li>
+                        <li><strong>Old (flat rate):</strong> total interest = principal &times; flat rate &times; tenure (years), spread evenly over every month regardless of the declining balance.</li>
+                        <li><strong>New (reducing balance / EIR):</strong> interest is charged only on the outstanding balance each month, like a standard amortizing loan. The EIR is estimated from your flat rate using the common approximation <em>EIR &approx; 2 &times; tenure &times; flat rate / (tenure + 1)</em> -- this is an illustrative conversion, not an official bank figure.</li>
+                        <li><strong>Principal:</strong> car price minus your down payment.</li>
+                        <li><strong>Scope:</strong> the new method applies only to hire purchase agreements signed from 1 June 2026 onward, and is rolling out across lenders in phases -- your actual quote may still be flat-rate depending on the lender.</li>
+                        <li><strong>Disclaimer:</strong> this calculator is a guide only and does not replace an official loan quote from your bank or dealer.</li>
                     </ul>
                 </div>
 
@@ -360,16 +392,16 @@
                     <h4 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frequently Asked Questions</h4>
                     <div class="space-y-4 text-xs text-slate-600 dark:text-slate-400">
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">How much will my EPF grow by retirement?</p>
-                            <p>It depends on your current balance, salary, years to retirement, and the dividend rate -- adjust the inputs above to see your own projection.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What changed with the Hire Purchase (Amendment) Act 2026?</p>
+                            <p>From 1 June 2026, new hire purchase agreements move from flat-rate interest (with the Rule of 78) to an EIR reducing-balance method, where interest is charged on the outstanding balance instead of the full original loan amount.</p>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What EPF dividend rate should I assume?</p>
-                            <p>EPF declares its rate annually and it varies -- this tool defaults to a conservative illustrative rate you can adjust yourself.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Does this affect my existing car loan?</p>
+                            <p>No -- it only applies to new agreements signed from 1 June 2026 onward, and rollout is phased across lenders. Existing loans keep their original flat-rate terms unless refinanced.</p>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What contribution rate does this use?</p>
-                            <p>11%/13% (or 12%) below age 60, and 0%/4% from age 60, per current EPF Act rates.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">How is the reducing-balance EIR estimated here?</p>
+                            <p>Using the standard approximation EIR &approx; 2 &times; tenure(years) &times; flat rate / (tenure(years) + 1), then amortized like a reducing-balance loan. Treat it as an illustrative estimate, not an official quote.</p>
                         </div>
                     </div>
                 </div>
@@ -381,13 +413,13 @@
             <div class="flex flex-wrap justify-center gap-3">
                 <a href="../index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
                 <a href="../salary-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Salary Calculator</a>
+                <a href="../epf-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
                 <a href="../income-tax-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
-                <a href="../hire-purchase-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Hire Purchase Calculator</a>
             </div>
         </div>
     </main>
 
-    <script src="epf-calculator.js"></script>
+    <script src="hire-purchase-calculator.js"></script>
 </body>
 
 </html>
