@@ -141,6 +141,7 @@
         .text-green-600, .text-green-700 { color: #275F47 !important; }
 
         /* Success / positive -- dark */
+        html.dark .dark\:bg-green-950 { background-color: #1A2E22 !important; }
         html.dark .dark\:border-green-900 { border-color: #2A4A38 !important; }
         html.dark .dark\:text-green-300, html.dark .dark\:text-green-400 { color: #7FC49E !important; }
 
@@ -340,7 +341,7 @@
                     </div>
                     <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
                         <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Deductions</p>
-                        <p id="result-total-deductions" class="text-2xl font-black text-red-500">RM0</p>
+                        <p id="result-total-deductions" class="text-2xl font-black text-red-500 dark:text-red-300">RM0</p>
                     </div>
                 </div>
 
@@ -348,7 +349,7 @@
                     <h3 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b dark:border-slate-700 pb-2">Deduction Breakdown</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-xs">
                         <div>
-                            <p class="text-[9px] font-bold text-red-500 uppercase tracking-widest mb-2">Deducted From Your Salary</p>
+                            <p class="text-[9px] font-bold text-red-500 dark:text-red-300 uppercase tracking-widest mb-2">Deducted From Your Salary</p>
                             <div class="space-y-2">
                                 <div class="flex justify-between"><span>EPF (Employee)</span><span id="result-epf-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
                                 <div class="flex justify-between"><span>SOCSO (Employee)</span><span id="result-socso-employee" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
