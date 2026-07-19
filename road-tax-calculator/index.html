@@ -191,6 +191,11 @@
                 "@type": "Question",
                 "name": "Why is road tax cheaper in Sabah and Sarawak?",
                 "acceptedAnswer": { "@type": "Answer", "text": "JPJ sets lower road tax rates for East Malaysia to reflect the region's road conditions and higher reliance on larger, four-wheel-drive vehicles. This calculator applies an approximate discount to the Peninsular Malaysia formula -- check MyJPJ for your exact East Malaysia figure." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does a company-registered car pay more road tax?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes, for saloon cars. Company-registered saloons pay roughly double the personal-registration rate up to 2,500cc, and an even higher multiple above that. Non-saloon vehicles (SUV/MPV/pickup) pay the same rate regardless of registration type." }
             }
         ]
     }
@@ -311,6 +316,14 @@
                                     <button type="button" id="body-mode-nonsaloon" onclick="setBodyMode('nonsaloon')" class="flex-1 py-2 transition">Non-Saloon</button>
                                 </div>
                             </div>
+                            <div class="mt-3">
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Registration</label>
+                                <div class="flex rounded overflow-hidden border border-slate-200 dark:border-slate-600 text-[10px] font-black uppercase mt-1">
+                                    <button type="button" id="reg-mode-personal" onclick="setRegistrationMode('personal')" class="flex-1 py-2 transition">Personal</button>
+                                    <button type="button" id="reg-mode-business" onclick="setRegistrationMode('business')" class="flex-1 py-2 transition">Business</button>
+                                </div>
+                                <p class="text-[9px] text-slate-400 mt-1">Business-registered saloons pay a higher rate. No difference for non-saloon.</p>
+                            </div>
                         </div>
 
                         <div id="ev-fields" class="hidden">
@@ -350,24 +363,25 @@
 
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
                     <div class="overflow-x-auto">
-                        <table class="w-full text-center min-w-[500px]">
+                        <table class="w-full text-center min-w-[600px]">
                             <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
                                 <tr>
                                     <th class="p-3 text-left">Engine Capacity</th>
-                                    <th class="p-3">Saloon (Peninsular)</th>
-                                    <th class="p-3">Non-Saloon (Peninsular)</th>
+                                    <th class="p-3">Personal Saloon</th>
+                                    <th class="p-3">Business Saloon</th>
+                                    <th class="p-3">Non-Saloon</th>
                                 </tr>
                             </thead>
                             <tbody class="text-[11px] divide-y divide-slate-100 dark:divide-slate-700">
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,000cc and below</td><td class="p-3">RM20</td><td class="p-3">RM20</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,001&ndash;1,200cc</td><td class="p-3">RM55</td><td class="p-3">RM85</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,201&ndash;1,400cc</td><td class="p-3">RM70</td><td class="p-3">RM100</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,401&ndash;1,600cc</td><td class="p-3">RM90</td><td class="p-3">RM120</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,601&ndash;1,800cc</td><td class="p-3">RM200 + RM0.40/cc</td><td class="p-3">RM300 + RM0.30/cc</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,801&ndash;2,000cc</td><td class="p-3">RM280 + RM0.50/cc</td><td class="p-3">RM360 + RM0.40/cc</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">2,001&ndash;2,500cc</td><td class="p-3">RM380 + RM1.00/cc</td><td class="p-3">RM440 + RM0.80/cc</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">2,501&ndash;3,000cc</td><td class="p-3">RM880 + RM2.50/cc</td><td class="p-3">RM840 + RM1.60/cc</td></tr>
-                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">3,001cc and above</td><td class="p-3">RM2,130 + RM4.50/cc</td><td class="p-3">RM1,640 + RM1.60/cc</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,000cc and below</td><td class="p-3">RM20</td><td class="p-3">RM20</td><td class="p-3">RM20</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,001&ndash;1,200cc</td><td class="p-3">RM55</td><td class="p-3">RM110</td><td class="p-3">RM85</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,201&ndash;1,400cc</td><td class="p-3">RM70</td><td class="p-3">RM140</td><td class="p-3">RM100</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,401&ndash;1,600cc</td><td class="p-3">RM90</td><td class="p-3">RM180</td><td class="p-3">RM120</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,601&ndash;1,800cc</td><td class="p-3">RM200 + RM0.40/cc</td><td class="p-3">RM400 + RM0.80/cc</td><td class="p-3">RM300 + RM0.30/cc</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">1,801&ndash;2,000cc</td><td class="p-3">RM280 + RM0.50/cc</td><td class="p-3">RM560 + RM1.00/cc</td><td class="p-3">RM360 + RM0.40/cc</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">2,001&ndash;2,500cc</td><td class="p-3">RM380 + RM1.00/cc</td><td class="p-3">RM760 + RM3.00/cc</td><td class="p-3">RM440 + RM0.80/cc</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">2,501&ndash;3,000cc</td><td class="p-3">RM880 + RM2.50/cc</td><td class="p-3">RM2,260 + RM7.50/cc</td><td class="p-3">RM840 + RM1.60/cc</td></tr>
+                                <tr><td class="p-3 text-left font-bold text-slate-500 dark:text-slate-400">3,001cc and above</td><td class="p-3">RM2,130 + RM4.50/cc</td><td class="p-3">RM6,010 + RM13.50/cc</td><td class="p-3">RM1,640 + RM1.60/cc</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -378,6 +392,7 @@
                     <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated</h4>
                     <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
                         <li><strong>Petrol/diesel:</strong> a flat fee applies up to 1,600cc, then a base rate plus a per-cc surcharge for every cc above each bracket's floor. Saloon (sedan/hatchback/coupe) and non-saloon (SUV/MPV/pickup) use different tables -- non-saloons pay slightly more at small engine sizes but noticeably less at large engine sizes.</li>
+                        <li><strong>Business registration:</strong> company-registered saloon cars pay roughly double the personal-registration rate up to 2,500cc, rising to about 2.6&ndash;2.8&times; above that. Non-saloon vehicles pay the same rate regardless of registration type.</li>
                         <li><strong>Electric vehicles (EV):</strong> from 1 January 2026, JPJ taxes EVs by motor power output (kW) instead of engine cc, across power bands with no saloon/non-saloon distinction. Figures here are interpolated from the published band boundaries and are approximate -- confirm your exact figure via MyJPJ.</li>
                         <li><strong>Sabah/Sarawak:</strong> East Malaysia rates are lower than Peninsular Malaysia. This calculator applies an approximate discount to the Peninsular formula; the official East Malaysia schedule may differ bracket by bracket.</li>
                         <li><strong>Disclaimer:</strong> this calculator is a planning guide only and does not replace your official JPJ / MyJPJ renewal notice.</li>
@@ -398,6 +413,10 @@
                         <div>
                             <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Why is road tax cheaper in Sabah and Sarawak?</p>
                             <p>JPJ sets lower rates for East Malaysia given road conditions and reliance on larger 4WD vehicles. This calculator applies an approximate discount -- check MyJPJ for your exact figure.</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Does a company-registered car pay more road tax?</p>
+                            <p>Yes, for saloon cars -- roughly double the personal rate up to 2,500cc, rising higher above that. Non-saloon vehicles pay the same rate regardless of registration type.</p>
                         </div>
                     </div>
                 </div>
