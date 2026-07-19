@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Free Malaysia income tax calculator for YA2025. Estimate your chargeable income and tax payable using LHDN's progressive tax brackets, personal, spouse, child and EPF reliefs.">
+        content="Free Malaysia car Total Cost of Ownership (TCO) calculator. Combines loan installment, road tax, insurance, fuel, maintenance and depreciation into one true monthly cost figure.">
     <meta name="keywords"
-        content="Income Tax Calculator Malaysia, LHDN Tax Calculator, YA2025 Tax Calculator, Malaysia Tax Brackets, Chargeable Income Calculator">
+        content="Car Total Cost of Ownership Malaysia, Car TCO Calculator, True Cost of Owning a Car Malaysia, Car Running Cost Calculator, Car Affordability Calculator Malaysia">
     <meta name="author" content="PropROICal">
-    <link rel="canonical" href="https://proproical.com/income-tax-calculator/">
+    <link rel="canonical" href="https://proproical.com/car-tco-calculator/">
 
-    <title>Income Tax Calculator Malaysia YA2025 | LHDN Tax Brackets &amp; Reliefs</title>
+    <title>Car Total Cost of Ownership Calculator Malaysia | True Monthly Cost</title>
     <link rel="icon" type="image/png" href="../favicon.png">
     <link rel="apple-touch-icon" href="../favicon.png">
 
@@ -24,6 +24,7 @@
     <script>
         tailwind.config = { darkMode: 'class' };
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -164,11 +165,11 @@
     {
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Malaysia Income Tax Calculator (YA2025)",
-        "url": "https://proproical.com/income-tax-calculator/",
+        "name": "Malaysia Car Total Cost of Ownership Calculator",
+        "url": "https://proproical.com/car-tco-calculator/",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Any",
-        "description": "Free calculator to estimate Malaysian resident individual income tax for YA2025 using LHDN's progressive brackets and standard reliefs.",
+        "description": "Free calculator combining car loan installment, road tax, insurance, fuel/energy, maintenance and depreciation into a true monthly cost of ownership figure for Malaysia.",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "MYR" }
     }
     </script>
@@ -179,18 +180,18 @@
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "What are Malaysia's income tax rates for YA2025?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Resident individuals are taxed progressively from 0% to 30% depending on chargeable income, unchanged from YA2024. The first RM5,000 is tax-free, rising through brackets up to 30% for chargeable income above RM2,000,000." }
+                "name": "What is included in a car's total cost of ownership?",
+                "acceptedAnswer": { "@type": "Answer", "text": "This calculator combines your down payment, monthly loan installment, road tax, insurance premium, fuel or charging cost, and maintenance over your chosen ownership period, then nets off the car's estimated resale value and any remaining loan balance to give a true monthly cost." }
             },
             {
                 "@type": "Question",
-                "name": "What is chargeable income?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Chargeable income is your total annual income minus allowable tax reliefs, such as the automatic RM9,000 personal relief, EPF relief (up to RM4,000), spouse relief, and child relief. Tax is calculated on chargeable income, not gross income." }
+                "name": "Why does the monthly true cost differ from just the loan installment?",
+                "acceptedAnswer": { "@type": "Answer", "text": "The loan installment is only one slice of running a car. Road tax, insurance, fuel and maintenance are recurring costs on top of it, while depreciation reduces what you'll get back when you sell -- all of which the monthly loan figure alone hides." }
             },
             {
                 "@type": "Question",
-                "name": "Does this calculator include all tax reliefs?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. This is a simplified estimate covering personal, EPF, spouse, and child relief, plus a lump-sum field for any other reliefs. LHDN offers around 20 relief categories in total (lifestyle, medical, education, etc.) -- for an exact figure, use LHDN's official e-Filing system or consult a tax agent." }
+                "name": "What happens if I sell the car before the loan is fully paid?",
+                "acceptedAnswer": { "@type": "Answer", "text": "If your chosen ownership period is shorter than the loan tenure, this calculator estimates your remaining loan balance at that point and nets it against the car's resale value, which can result in negative equity if the car is worth less than what you still owe." }
             }
         ]
     }
@@ -247,7 +248,7 @@
                         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
                             <a href="../salary-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Salary Calculator</a>
                             <a href="../epf-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">EPF Calculator</a>
-                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">Income Tax Calculator</span>
+                            <a href="../income-tax-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Income Tax Calculator</a>
                         </div>
                     </div>
                 </div>
@@ -264,7 +265,7 @@
                         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
                             <a href="../hire-purchase-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Hire Purchase Calculator</a>
                             <a href="../road-tax-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Road Tax Calculator</a>
-                            <a href="../car-tco-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Total Cost of Ownership</a>
+                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">Total Cost of Ownership</span>
                         </div>
                     </div>
                 </div>
@@ -278,123 +279,173 @@
     </header>
 
     <main class="max-w-5xl mx-auto px-4 pb-10">
-        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">Malaysia Income Tax Calculator (YA2025)</h2>
-        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Estimate your chargeable income and tax payable using LHDN's progressive tax brackets.</p>
+        <h2 class="text-xl font-black text-blue-900 dark:text-blue-300 mb-1">Car Total Cost of Ownership Calculator</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Combine loan, road tax, insurance, fuel, maintenance and depreciation into one true monthly cost.</p>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 space-y-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
                     <div class="flex items-center justify-between mb-4 border-b dark:border-slate-700 pb-2">
-                        <h3 class="text-blue-900 dark:text-blue-400 font-bold uppercase text-[11px] tracking-widest">Your Details</h3>
+                        <h3 class="text-blue-900 dark:text-blue-400 font-bold uppercase text-[11px] tracking-widest">Car &amp; Loan</h3>
                         <button type="button" onclick="if(confirm('Reset all inputs to default values?')) resetToDefaults()"
                             class="text-[9px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-600 transition">Reset</button>
                     </div>
                     <div class="space-y-3" id="input-container">
                         <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Annual Income (RM)</label>
-                            <input type="text" inputmode="decimal" id="annualIncome" value="100,000"
-                                class="comma-fmt w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
-                        </div>
-                        <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Annual EPF Contribution (RM)</label>
-                            <input type="text" inputmode="decimal" id="annualEpf" value="6,600"
-                                class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Car Price (RM)</label>
+                            <input type="text" inputmode="decimal" id="carPrice" value="100,000"
+                                class="comma-fmt w-full p-2 border border-blue-100 bg-blue-50 rounded text-xs text-blue-700 font-bold text-center dark:bg-slate-900 dark:border-blue-900 dark:text-blue-300">
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">Marital Status</label>
-                                <select id="maritalStatus"
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Down Payment (%)</label>
+                                <input type="number" id="downPaymentPct" value="10" step="1"
                                     class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
-                                    <option value="single" selected>Single</option>
-                                    <option value="married">Married</option>
-                                </select>
                             </div>
                             <div>
-                                <label class="text-[9px] font-bold text-slate-400 uppercase">No. of Children (&lt;18)</label>
-                                <input type="number" id="numChildren" value="0" min="0"
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Loan Tenure (Yrs)</label>
+                                <input type="number" id="loanTenure" value="7" min="1" max="9"
+                                    class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Flat Rate (% p.a.)</label>
+                                <input type="number" id="flatRate" value="2.75" step="0.05"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Ownership (Yrs)</label>
+                                <input type="number" id="ownershipYears" value="7" min="1" max="20"
                                     class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                             </div>
                         </div>
-                        <div id="spouse-relief-wrap" class="hidden flex items-center gap-2 pt-1">
-                            <input type="checkbox" id="claimSpouseRelief" class="w-4 h-4 cursor-pointer">
-                            <label for="claimSpouseRelief" class="text-[10px] font-bold text-slate-500 dark:text-slate-400 cursor-pointer">Claiming spouse relief (RM4,000)</label>
+
+                        <div class="pt-2 border-t border-slate-100 dark:border-slate-700">
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Vehicle Type</label>
+                            <div class="flex rounded overflow-hidden border border-slate-200 dark:border-slate-600 text-[10px] font-black uppercase mt-1">
+                                <button type="button" id="fuel-mode-petrol" onclick="setFuelMode('petrol')" class="flex-1 py-2 transition">Petrol/Diesel</button>
+                                <button type="button" id="fuel-mode-ev" onclick="setFuelMode('ev')" class="flex-1 py-2 transition">Electric (EV)</button>
+                            </div>
+                        </div>
+
+                        <div id="petrol-fields">
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">Engine (cc)</label>
+                                    <input type="number" id="engineCc" value="1600" step="10"
+                                        class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-400 uppercase">Body Type</label>
+                                    <select id="bodyMode" class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                                        <option value="saloon" selected>Saloon</option>
+                                        <option value="nonsaloon">Non-Saloon</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ev-fields" class="hidden">
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Motor Power (kW)</label>
+                            <input type="number" id="motorKw" value="150" step="5"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 dark:border-slate-700 grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Monthly Distance (km)</label>
+                                <input type="number" id="monthlyDistance" value="1200" step="50"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div id="fuel-consumption-field">
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Consumption (km/L)</label>
+                                <input type="number" id="fuelConsumption" value="12" step="0.5"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div id="fuel-price-field">
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Fuel Price (RM/L)</label>
+                                <input type="number" id="fuelPrice" value="1.99" step="0.01"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div id="ev-cost-field" class="hidden">
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Energy Cost (RM/km)</label>
+                                <input type="number" id="evCostPerKm" value="0.05" step="0.01"
+                                    class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-100 dark:border-slate-700 grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Insurance (RM/yr)</label>
+                                <input type="text" inputmode="decimal" id="insuranceAnnual" value="1,800"
+                                    class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-400 uppercase">Maintenance (RM/mth)</label>
+                                <input type="text" inputmode="decimal" id="maintenanceMonthly" value="150"
+                                    class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            </div>
                         </div>
                         <div>
-                            <label class="text-[9px] font-bold text-slate-400 uppercase">Other Reliefs (RM)</label>
-                            <input type="text" inputmode="decimal" id="otherReliefs" value="0"
-                                class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            <label class="text-[9px] font-bold text-slate-400 uppercase">Depreciation Rate (%/yr)</label>
+                            <input type="number" id="depreciationPct" value="15" step="1"
+                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                         </div>
                     </div>
                     <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
-                        "Other Reliefs" covers lifestyle, medical, education, SSPN, and any relief not listed above -- lump it together here.
+                        Insurance and maintenance are your own estimates or quotes -- this calculator doesn't price them for you. Loan uses the post-2026 reducing-balance method; road tax follows JPJ's cc/kW schedule.
                     </p>
                 </div>
             </div>
 
             <div class="lg:col-span-8 space-y-4">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white col-span-2 md:col-span-1">
-                        <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Estimated Tax Payable</p>
-                        <p id="result-tax" class="text-3xl font-black break-words leading-tight">RM0</p>
-                    </div>
-                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Chargeable Income</p>
-                        <p id="result-chargeable" class="text-2xl font-black text-slate-900 dark:text-slate-100">RM0</p>
-                    </div>
-                    <div class="metric-bubble bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Effective Tax Rate</p>
-                        <p id="result-effective-rate" class="text-2xl font-black text-blue-700">0.00%</p>
-                    </div>
+                <div class="metric-bubble bg-blue-900 p-6 rounded-2xl shadow-lg border border-blue-800 text-center text-white">
+                    <p class="text-[10px] font-bold text-blue-200 uppercase tracking-widest">True Monthly Cost of Ownership</p>
+                    <p id="result-monthly-true-cost" class="text-3xl font-black break-words leading-tight">RM0</p>
+                    <p class="text-[9px] text-blue-200 uppercase mt-1">cash outflow, net of resale value &amp; loan payoff</p>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Monthly Equivalent</p>
-                        <p id="result-monthly-tax" class="text-lg font-black text-slate-900 dark:text-slate-100">RM0</p>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Total Cash Outflow</p>
+                        <p id="result-total-outflow" class="text-lg font-black text-slate-900 dark:text-slate-100">RM0</p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Total Reliefs</p>
-                        <p id="result-total-reliefs" class="text-lg font-black text-green-600">RM0</p>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Est. Resale Value</p>
+                        <p id="result-resale-value" class="text-lg font-black text-green-600">RM0</p>
                     </div>
-                    <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-center col-span-2 md:col-span-1">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2">Net Income After Tax</p>
-                        <p id="result-net-income" class="text-lg font-black text-slate-900 dark:text-slate-100">RM0</p>
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-                    <h3 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4 border-b dark:border-slate-700 pb-2">Relief Breakdown</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-xs">
-                        <div class="flex justify-between"><span>Personal Relief</span><span id="break-personal-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>EPF Relief (capped RM4,000)</span><span id="break-epf-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>Spouse Relief</span><span id="break-spouse-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between"><span>Child Relief</span><span id="break-child-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
-                        <div class="flex justify-between col-span-1 md:col-span-2"><span>Other Reliefs</span><span id="break-other-relief" class="font-bold text-slate-900 dark:text-slate-100">RM0</span></div>
+                    <div class="metric-bubble bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 text-center col-span-2 md:col-span-1">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest">Remaining Loan Balance</p>
+                        <p id="result-remaining-loan" class="text-lg font-black text-red-600">RM0</p>
                     </div>
                 </div>
 
-                <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
-                    <table class="w-full">
-                        <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
-                            <tr>
-                                <th class="p-3 text-left">Bracket</th>
-                                <th class="p-3">Rate</th>
-                                <th class="p-3">Tax</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bracket-table" class="text-[10px]"></tbody>
-                    </table>
-                    <p class="text-[10px] text-slate-400 dark:text-slate-500 p-3 border-t dark:border-slate-700">RM400 rebate applied when eligible (chargeable income ≤ RM35,000): <span id="result-rebate">RM0</span></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow border border-slate-200 dark:border-slate-700 h-64 relative">
+                        <canvas id="breakdownChart"></canvas>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 rounded-xl shadow border border-slate-200 dark:border-slate-700 overflow-hidden">
+                        <table class="w-full text-center">
+                            <thead class="bg-slate-50 dark:bg-slate-900 border-b dark:border-slate-700 text-[9px] font-black text-slate-400 uppercase">
+                                <tr>
+                                    <th class="p-2 text-left">Cost Component</th>
+                                    <th class="p-2">Over Ownership Period</th>
+                                </tr>
+                            </thead>
+                            <tbody id="breakdown-table" class="text-[11px] divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div class="bg-slate-100 dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 text-left">
-                    <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated (YA2025)</h4>
+                    <h4 class="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">How This Is Calculated</h4>
                     <ul class="text-[10px] text-slate-600 dark:text-slate-400 space-y-2 list-disc pl-4">
-                        <li><strong>Chargeable Income:</strong> Annual Income minus Personal Relief (RM9,000, automatic) minus EPF Relief (up to RM4,000) minus Spouse Relief (RM4,000, if claimed) minus Child Relief (RM2,000 per child under 18) minus Other Reliefs.</li>
-                        <li><strong>Tax Brackets:</strong> LHDN's YA2025 progressive rates, 0% to 30%, applied to chargeable income (unchanged from YA2024).</li>
-                        <li><strong>RM400 Rebate:</strong> Applied automatically when chargeable income is RM35,000 or below.</li>
-                        <li><strong>Simplifications:</strong> Child relief above uses the basic under-18 rate only (tertiary-education and disabled-child reliefs can be higher -- add the difference under "Other Reliefs"). This tool does not enumerate all ~20 LHDN relief categories individually.</li>
-                        <li><strong>Disclaimer:</strong> This calculator is a guide only. For an exact figure, use LHDN's official e-Filing system or consult a licensed tax agent.</li>
+                        <li><strong>Loan:</strong> monthly installment uses the post-2026 reducing-balance method, with the EIR estimated from your flat rate (same approach as the Hire Purchase Calculator).</li>
+                        <li><strong>Road tax:</strong> looked up from JPJ's cc-based schedule (petrol/diesel) or the 2026 kW-based EV schedule, same as the Road Tax Calculator.</li>
+                        <li><strong>Fuel/energy:</strong> monthly distance &divide; consumption &times; fuel price (petrol/diesel), or distance &times; cost-per-km (EV).</li>
+                        <li><strong>Resale &amp; loan payoff:</strong> the car's value is depreciated year by year at your chosen rate. If you sell before the loan is fully paid, any remaining loan balance is estimated and netted against the resale value -- this can produce negative equity if the car is worth less than what's owed.</li>
+                        <li><strong>True monthly cost:</strong> (total cash outflow &minus; resale value + remaining loan balance) &divide; months of ownership. Insurance and maintenance are your own inputs, not estimated by this calculator.</li>
+                        <li><strong>Disclaimer:</strong> this calculator is a planning guide only, using approximated formulas for loan EIR and road tax -- it does not replace an official quote.</li>
                     </ul>
                 </div>
 
@@ -402,16 +453,16 @@
                     <h4 class="text-[13px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frequently Asked Questions</h4>
                     <div class="space-y-4 text-xs text-slate-600 dark:text-slate-400">
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What are Malaysia's income tax rates for YA2025?</p>
-                            <p>Progressive rates from 0% to 30%, unchanged from YA2024. See the full bracket breakdown above once you enter your income.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What is included in a car's total cost of ownership?</p>
+                            <p>Down payment, loan installment, road tax, insurance, fuel/energy and maintenance over your ownership period, netted against the car's resale value and any remaining loan balance.</p>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What is chargeable income?</p>
-                            <p>Your annual income minus allowable reliefs. Tax is calculated on chargeable income, not your gross salary.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Why does the monthly true cost differ from just the loan installment?</p>
+                            <p>The loan installment is only one slice of running a car -- road tax, insurance, fuel and maintenance add up on top, while depreciation reduces what you'll get back at resale.</p>
                         </div>
                         <div>
-                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Does this include every tax relief?</p>
-                            <p>No -- it covers the most common ones and a lump-sum "other reliefs" field. For an exact figure, use LHDN's e-Filing system.</p>
+                            <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">What happens if I sell before the loan is fully paid?</p>
+                            <p>This calculator estimates your remaining loan balance at that point and nets it against resale value, which can show negative equity if you owe more than the car is worth.</p>
                         </div>
                     </div>
                 </div>
@@ -424,14 +475,14 @@
                 <a href="../index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Property ROI Calculator</a>
                 <a href="../salary-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Salary Calculator</a>
                 <a href="../epf-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">EPF Retirement Calculator</a>
+                <a href="../income-tax-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Income Tax Calculator</a>
                 <a href="../hire-purchase-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Hire Purchase Calculator</a>
                 <a href="../road-tax-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Road Tax Calculator</a>
-                <a href="../car-tco-calculator/index.html" class="text-[11px] font-bold text-blue-700 dark:text-blue-400 hover:underline">Car Total Cost of Ownership</a>
             </div>
         </div>
     </main>
 
-    <script src="income-tax-calculator.js"></script>
+    <script src="car-tco-calculator.js"></script>
 </body>
 
 </html>
