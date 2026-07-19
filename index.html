@@ -539,21 +539,24 @@
                         </div>
                     </div>
 
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center dark:bg-slate-800 dark:border-slate-700">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest leading-tight">
+                                Total Interest Payable
+                                <span class="block text-[11px] opacity-60 font-medium normal-case tracking-normal mt-1">(Over Loan Tenure)</span>
+                            </p>
+                            <p id="interest-badge" class="text-3xl font-black text-red-600">RM0</p>
+                        </div>
+                        <div class="metric-bubble bg-white p-6 rounded-2xl shadow-md border border-slate-200 text-center dark:bg-slate-800 dark:border-slate-700">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest leading-tight">Monthly Maintenance</p>
+                            <p id="maint-badge" class="text-3xl font-black text-red-600">RM0</p>
+                        </div>
+                    </div>
+
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
                         <div class="flex flex-col md:flex-row justify-between items-center mb-4 border-b pb-2 gap-2">
                             <h3 class="text-[13px] font-black text-slate-500 uppercase tracking-widest">Year 1 Detailed
                                 Breakdown</h3>
-                            <div class="flex flex-wrap justify-center gap-2">
-                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100 dark:bg-red-950 dark:border-red-900">
-                                    <span class="text-[9px] font-bold text-red-400 uppercase mr-2">Total Interest
-                                        Payable</span>
-                                    <span id="interest-badge" class="text-[11px] font-black text-red-600">RM0</span>
-                                </div>
-                                <div class="flex items-center bg-red-50 px-3 py-1 rounded-full border border-red-100 dark:bg-red-950 dark:border-red-900">
-                                    <span class="text-[9px] font-bold text-red-400 uppercase mr-2">Monthly Maint</span>
-                                    <span id="maint-badge" class="text-[11px] font-black text-red-600">RM0</span>
-                                </div>
-                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs">
                             <div class="space-y-2 text-center md:text-left">
