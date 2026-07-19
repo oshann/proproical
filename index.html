@@ -48,12 +48,31 @@
             display: block;
         }
 
+        .tab-btn {
+            color: var(--ink-mid, #5B5138);
+        }
+
+        .tab-btn:hover {
+            background-color: var(--paper-input, #F7F1DF);
+        }
+
         .tab-btn.active {
-            /* The design you like, but in White for visibility */
-            border-bottom: 3px solid #ffffff;
-            color: #ffffff !important;
+            color: #17392A !important;
             font-weight: 800;
-            /* Extra bold for clarity */
+            background-color: var(--paper-input, #F7F1DF);
+        }
+
+        html.dark .tab-btn {
+            color: #E0D5B8;
+        }
+
+        html.dark .tab-btn:hover {
+            background-color: #2E271C;
+        }
+
+        html.dark .tab-btn.active {
+            color: #7FC49E !important;
+            background-color: #2E271C;
         }
 
         body {
@@ -247,7 +266,7 @@
                 <p class="text-[10px] uppercase tracking-[0.2em] font-bold text-blue-200 mt-1 opacity-80">Property ROI
                     Calculator</p>
             </div>
-            <nav class="flex gap-6 mt-4 md:mt-0 items-center">
+            <nav class="flex gap-4 mt-4 md:mt-0 items-center">
                 <button onclick="toggleDarkMode()" id="dark-toggle-btn"
                     class="text-blue-100 hover:text-white transition p-1.5 rounded-lg hover:bg-white/10" title="Toggle dark mode">
                     <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -259,34 +278,45 @@
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
                 </button>
-                <button onclick="switchTab('simple')" id="btn-simple"
-                    class="tab-btn active pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Simple</button>
-                <button onclick="switchTab('projection')" id="btn-projection"
-                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">30-Year
-                    Projection</button>
-                <button onclick="switchTab('compare')" id="btn-compare"
-                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Compare</button>
-                <button onclick="switchTab('tenant-rental-quote')" id="btn-tenant-rental-quote"
-                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Tenant Rental
-                    Quote</button>
-                <button onclick="switchTab('about')" id="btn-about"
-                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">About</button>
-                <button onclick="switchTab('contact')" id="btn-contact"
-                    class="tab-btn pb-1 text-[11px] uppercase tracking-wider text-blue-100 transition">Contact</button>
 
+                <!-- Property ROI: all property-calculator tabs grouped into one dropdown -->
                 <div class="relative group">
                     <button type="button"
                         class="flex items-center gap-1 pb-1 text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">
-                        More Tools
+                        Property ROI
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-50">
+                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
+                            <button onclick="switchTab('simple')" id="btn-simple"
+                                class="tab-btn active block w-full text-left px-4 py-2 text-xs transition">Simple</button>
+                            <button onclick="switchTab('projection')" id="btn-projection"
+                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">30-Year Projection</button>
+                            <button onclick="switchTab('compare')" id="btn-compare"
+                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Compare</button>
+                            <button onclick="switchTab('tenant-rental-quote')" id="btn-tenant-rental-quote"
+                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Tenant Rental Quote</button>
+                            <button onclick="switchTab('about')" id="btn-about"
+                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">About</button>
+                            <button onclick="switchTab('contact')" id="btn-contact"
+                                class="tab-btn block w-full text-left px-4 py-2 text-xs transition">Contact</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Finance: the 3 other calculator pages grouped into one dropdown -->
+                <div class="relative group">
+                    <button type="button"
+                        class="flex items-center gap-1 pb-1 text-[11px] uppercase tracking-wider text-blue-100 hover:text-white transition">
+                        Personal Finance
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     <div class="absolute right-0 md:left-0 top-full pt-2 hidden group-hover:block z-50">
                         <div class="bg-white dark:bg-slate-800 rounded-lg shadow-xl border border-slate-200 dark:border-slate-700 w-56 py-2 text-left">
-                            <p class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">Property</p>
-                            <span class="block px-4 py-2 text-xs font-bold text-blue-700 dark:text-blue-400">Property ROI Calculator</span>
-                            <p class="px-4 py-1 mt-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest border-t border-slate-100 dark:border-slate-700 pt-2">Personal Finance</p>
                             <a href="salary-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Salary Calculator</a>
                             <a href="epf-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">EPF Calculator</a>
                             <a href="income-tax-calculator/index.html" class="block px-4 py-2 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700">Income Tax Calculator</a>
