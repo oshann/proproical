@@ -17,3 +17,16 @@ income-tax-calculator/income-tax-calculator-clean.js
 Notes.txt
 favicon.png
 tenant-rental-quote.html
+
+# Personal / reference files not meant for deployment
+*.xlsx
+*.xls
+
+# OS junk files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local env files (none currently present, but never deploy these if added)
+.env
+.env.local
