@@ -136,13 +136,13 @@
                     <div class="space-y-3" id="input-container">
                         <div>
                             <label class="text-[9px] font-bold text-slate-400 uppercase">Annual Income (RM)</label>
-                            <input type="number" id="annualIncome" value="100000"
-                                class="w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
+                            <input type="text" inputmode="decimal" id="annualIncome" value="100,000"
+                                class="comma-fmt w-full p-2 bg-slate-50 border rounded text-xs font-bold text-center dark:bg-slate-900 dark:border-slate-600 dark:text-slate-100">
                         </div>
                         <div>
                             <label class="text-[9px] font-bold text-slate-400 uppercase">Annual EPF Contribution (RM)</label>
-                            <input type="number" id="annualEpf" value="6600"
-                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            <input type="text" inputmode="decimal" id="annualEpf" value="6,600"
+                                class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
@@ -165,8 +165,8 @@
                         </div>
                         <div>
                             <label class="text-[9px] font-bold text-slate-400 uppercase">Other Reliefs (RM)</label>
-                            <input type="number" id="otherReliefs" value="0"
-                                class="w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
+                            <input type="text" inputmode="decimal" id="otherReliefs" value="0"
+                                class="comma-fmt w-full p-2 border rounded text-xs text-center dark:bg-slate-800 dark:border-slate-600 dark:text-slate-100">
                         </div>
                     </div>
                     <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-3 leading-relaxed">
