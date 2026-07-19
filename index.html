@@ -20,8 +20,7 @@
     <link rel="apple-touch-icon" href="favicon.png">
 
     <script>
-        if (localStorage.getItem('theme') === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
     </script>
@@ -318,9 +317,11 @@
 
             <div id="sidebar-inputs" class="lg:col-span-3 space-y-4">
                 <div class="bg-white p-5 rounded-xl shadow border border-slate-200 dark:bg-slate-800 dark:border-slate-700">
-                    <h2
-                        class="text-blue-900 font-bold mb-4 uppercase text-[11px] tracking-widest border-b pb-2 text-center">
-                        Investment Inputs</h2>
+                    <div class="flex items-center justify-between mb-4 border-b pb-2">
+                        <h2 class="text-blue-900 font-bold uppercase text-[11px] tracking-widest">Investment Inputs</h2>
+                        <button type="button" onclick="if(confirm('Reset all inputs to default values?')) resetToDefaults()"
+                            class="text-[9px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-600 transition">Reset</button>
+                    </div>
                     <div class="space-y-3" id="input-container">
                         <div class="grid grid-cols-2 gap-2">
                             <div>

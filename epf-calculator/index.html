@@ -16,8 +16,7 @@
     <link rel="apple-touch-icon" href="../favicon.png">
 
     <script>
-        if (localStorage.getItem('theme') === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
     </script>
@@ -249,7 +248,11 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-4 space-y-4">
                 <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow border border-slate-200 dark:border-slate-700">
-                    <h3 class="text-blue-900 dark:text-blue-400 font-bold mb-4 uppercase text-[11px] tracking-widest border-b dark:border-slate-700 pb-2 text-center">Your Details</h3>
+                    <div class="flex items-center justify-between mb-4 border-b dark:border-slate-700 pb-2">
+                        <h3 class="text-blue-900 dark:text-blue-400 font-bold uppercase text-[11px] tracking-widest">Your Details</h3>
+                        <button type="button" onclick="if(confirm('Reset all inputs to default values?')) resetToDefaults()"
+                            class="text-[9px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-600 transition">Reset</button>
+                    </div>
                     <div class="space-y-3" id="input-container">
                         <div class="grid grid-cols-2 gap-2">
                             <div>
